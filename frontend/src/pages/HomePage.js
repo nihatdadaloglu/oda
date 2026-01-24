@@ -6,10 +6,12 @@ import apiClient from '../api/client';
 
 const HomePage = () => {
   const [announcements, setAnnouncements] = useState([]);
+  const [visits, setVisits] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchLatestAnnouncements();
+    fetchLatestVisits();
   }, []);
 
   const fetchLatestAnnouncements = async () => {
@@ -20,6 +22,15 @@ const HomePage = () => {
       console.error('Error fetching announcements:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchLatestVisits = async () => {
+    try {
+      const response = await apiClient.get('/api/visits?limit=3');
+      setVisits(response.data.items);
+    } catch (error) {
+      console.error('Error fetching visits:', error);
     }
   };
 
@@ -177,6 +188,64 @@ const HomePage = () => {
             </div>
           ) : (
             <p className="text-center text-gray-600 py-12">Henüz duyuru bulunmamaktadır.</p>
+          )}
+        </div>
+      </section>
+
+      {/* Latest Visits */}
+      <section className="bg-white py-16 border-t border-gray-100">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a]">
+              Son Ziyaretler
+            </h2>
+            <Link
+              to="/ziyaretler"
+              className="text-base font-semibold text-[#dc2626] hover:underline flex items-center"
+            >
+              Tümünü Görür
+              <ChevronRight size={20} className="ml-1" />
+            </Link>
+          </div>
+
+          {visits.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-8">
+              {visits.map((visit) => (
+                <Link
+                  key={visit.id}
+                  to={`/ziyaretler/${visit.id}`}
+                  className="group"
+                >
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-gray-200">
+                    <div className="aspect-[16/10] overflow-hidden">
+                      <img
+                        src={visit.cover_image}
+                        alt={visit.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center text-sm text-gray-600 mb-3">
+                        <Calendar size={16} className="mr-2" />
+                        {new Date(visit.date).toLocaleDateString('tr-TR', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </div>
+                      <h3 className="h-heading text-lg font-bold text-gray-900 mb-2 group-hover:text-[#1e3a8a] transition-colors line-clamp-2">
+                        {visit.title}
+                      </h3>
+                      <p className="text-sm text-gray-700 line-clamp-3 leading-relaxed">
+                        {visit.description}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-600 py-8">Henüz ziyaret kaydı bulunmamaktadır.</p>
           )}
         </div>
       </section>
