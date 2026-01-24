@@ -86,9 +86,9 @@ const UyelikPage = () => {
         <meta name="description" content="KEESO üyelik başvurusu ve üyelik sorgulama" />
       </Helmet>
 
-      <div className="bg-white py-12">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h1 className="h-heading text-4xl font-bold text-[#1e3a8a] mb-8">Üyelik</h1>
+      <div className="bg-white py-16">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+          <h1 className="h-heading text-5xl font-bold text-[#1e3a8a] mb-10">Üyelik</h1>
 
           {/* Tabs */}
           <div className="flex border-b border-gray-200 mb-8">

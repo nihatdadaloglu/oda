@@ -29,9 +29,9 @@ const OdemePage = () => {
         <meta name="description" content="KEESO ödeme seçenekleri" />
       </Helmet>
 
-      <div className="bg-white py-12">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h1 className="h-heading text-4xl font-bold text-[#1e3a8a] mb-4">Ödeme</h1>
+      <div className="bg-white py-16">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+          <h1 className="h-heading text-5xl font-bold text-[#1e3a8a] mb-4">Ödeme</h1>
           <p className="text-gray-700 mb-8">
             Aidat ve diğer ödemelerinizi aşağıdaki seçenekler üzerinden güvenle yapabilirsiniz.
           </p>

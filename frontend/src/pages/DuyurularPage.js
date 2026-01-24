@@ -47,9 +47,9 @@ const DuyurularPage = () => {
         <meta name="description" content="KEESO duyuruları ve haberler" />
       </Helmet>
 
-      <div className="bg-white py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h1 className="h-heading text-4xl font-bold text-[#1e3a8a] mb-8">Duyurular</h1>
+      <div className="bg-white py-16">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+          <h1 className="h-heading text-5xl font-bold text-[#1e3a8a] mb-10">Duyurular</h1>
 
           {/* Filters */}
           <div className="mb-8 flex flex-col md:flex-row gap-4">
