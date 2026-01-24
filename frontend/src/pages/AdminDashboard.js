@@ -670,6 +670,7 @@ const TrainingsManager = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [uploadingImages, setUploadingImages] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -678,7 +679,9 @@ const TrainingsManager = () => {
     location: '',
     instructor: '',
     capacity: '',
-    registration_link: ''
+    registration_link: '',
+    cover_image: '',
+    gallery_images: []
   });
 
   useEffect(() => {
@@ -694,6 +697,38 @@ const TrainingsManager = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleImageUpload = async (files, isGallery = false) => {
+    setUploadingImages(true);
+    try {
+      const uploadedUrls = [];
+      for (const file of files) {
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', file);
+        const response = await apiClient.post('/api/upload', uploadFormData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        uploadedUrls.push(response.data.file_url);
+      }
+      
+      if (isGallery) {
+        setFormData({ ...formData, gallery_images: [...formData.gallery_images, ...uploadedUrls] });
+      } else {
+        setFormData({ ...formData, cover_image: uploadedUrls[0] });
+      }
+      toast.success('Resim(ler) yüklendi');
+    } catch (error) {
+      toast.error('Resim yükleme başarısız');
+    } finally {
+      setUploadingImages(false);
+    }
+  };
+
+  const removeGalleryImage = (index) => {
+    const newGallery = [...formData.gallery_images];
+    newGallery.splice(index, 1);
+    setFormData({ ...formData, gallery_images: newGallery });
   };
 
   const handleSubmit = async (e) => {
@@ -713,7 +748,7 @@ const TrainingsManager = () => {
       }
       setShowForm(false);
       setEditingItem(null);
-      setFormData({ title: '', description: '', date: '', time: '', location: '', instructor: '', capacity: '', registration_link: '' });
+      setFormData({ title: '', description: '', date: '', time: '', location: '', instructor: '', capacity: '', registration_link: '', cover_image: '', gallery_images: [] });
       fetchTrainings();
     } catch (error) {
       toast.error('İşlem başarısız');
@@ -741,7 +776,9 @@ const TrainingsManager = () => {
       location: item.location || '',
       instructor: item.instructor || '',
       capacity: item.capacity || '',
-      registration_link: item.registration_link || ''
+      registration_link: item.registration_link || '',
+      cover_image: item.cover_image || '',
+      gallery_images: item.gallery_images || []
     });
     setShowForm(true);
   };
@@ -756,7 +793,7 @@ const TrainingsManager = () => {
           onClick={() => {
             setShowForm(!showForm);
             setEditingItem(null);
-            setFormData({ title: '', description: '', date: '', time: '', location: '', instructor: '', capacity: '', registration_link: '' });
+            setFormData({ title: '', description: '', date: '', time: '', location: '', instructor: '', capacity: '', registration_link: '', cover_image: '', gallery_images: [] });
           }}
           className="flex items-center space-x-2 px-4 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]"
         >
@@ -829,9 +866,66 @@ const TrainingsManager = () => {
               onChange={(e) => setFormData({ ...formData, registration_link: e.target.value })}
               className="w-full px-4 py-2 border rounded-md"
             />
+
+            {/* Cover Image */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Kapak Resmi</label>
+              {formData.cover_image ? (
+                <div className="relative inline-block">
+                  <img src={formData.cover_image} alt="Cover" className="w-32 h-32 object-cover rounded" />
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, cover_image: '' })}
+                    className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full p-1"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ) : (
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => e.target.files.length && handleImageUpload([e.target.files[0]], false)}
+                  disabled={uploadingImages}
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+              )}
+            </div>
+
+            {/* Gallery Images */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Galeri Resimleri (Opsiyonel)</label>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {formData.gallery_images.map((img, idx) => (
+                  <div key={idx} className="relative">
+                    <img src={img} alt={`Gallery ${idx}`} className="w-24 h-24 object-cover rounded" />
+                    <button
+                      type="button"
+                      onClick={() => removeGalleryImage(idx)}
+                      className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full p-1"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => e.target.files.length && handleImageUpload(Array.from(e.target.files), true)}
+                disabled={uploadingImages}
+                className="w-full px-4 py-2 border rounded-md"
+              />
+            </div>
+
             <div className="flex gap-2">
-              <button type="submit" className="px-6 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]">
-                {editingItem ? 'Güncelle' : 'Ekle'}
+              <button 
+                type="submit" 
+                disabled={uploadingImages}
+                className="px-6 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479] disabled:opacity-50"
+              >
+                {uploadingImages ? 'Yükleniyor...' : editingItem ? 'Güncelle' : 'Ekle'}
               </button>
               <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2 border rounded-md">
                 İptal
@@ -845,6 +939,7 @@ const TrainingsManager = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Resim</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Başlık</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tarih</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Konum</th>
@@ -854,6 +949,15 @@ const TrainingsManager = () => {
           <tbody className="divide-y divide-gray-200">
             {trainings.map((training) => (
               <tr key={training.id}>
+                <td className="px-6 py-4">
+                  {training.cover_image ? (
+                    <img src={training.cover_image} alt={training.title} className="w-16 h-12 object-cover rounded" />
+                  ) : (
+                    <div className="w-16 h-12 bg-gray-200 rounded flex items-center justify-center text-gray-400">
+                      <GraduationCap size={20} />
+                    </div>
+                  )}
+                </td>
                 <td className="px-6 py-4 text-sm text-gray-900">{training.title}</td>
                 <td className="px-6 py-4 text-sm text-gray-600">
                   {new Date(training.date).toLocaleDateString('tr-TR')}
