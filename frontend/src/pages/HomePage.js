@@ -103,24 +103,26 @@ const HomePage = () => {
       </section>
 
       {/* Quick Actions */}
-      <section className="bg-gray-50 py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="h-heading text-2xl sm:text-3xl font-semibold text-[#1e3a8a] mb-8 text-center">
+      <section className="bg-gray-50 py-16">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+          <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a] mb-12 text-center">
             Hızlı Erişim
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {quickActions.map((action, index) => (
               <Link
                 key={index}
                 to={action.link}
                 data-testid="quick-action-card"
-                className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-all group"
+                className="group bg-white rounded-xl p-8 hover:shadow-xl transition-all border-2 border-transparent hover:border-[#1e3a8a]"
               >
-                <action.icon size={32} className={`${action.color} mb-3`} />
-                <h3 className="h-heading text-base font-semibold text-gray-900 mb-1">
+                <div className={`w-16 h-16 rounded-full ${action.color === 'text-[#1e3a8a]' ? 'bg-blue-100' : 'bg-red-100'} flex items-center justify-center mb-5`}>
+                  <action.icon size={32} className={`${action.color}`} />
+                </div>
+                <h3 className="h-heading text-xl font-bold text-gray-900 mb-2 group-hover:text-[#1e3a8a] transition-colors">
                   {action.title}
                 </h3>
-                <p className="text-sm text-gray-600">{action.description}</p>
+                <p className="text-gray-600 leading-relaxed">{action.description}</p>
               </Link>
             ))}
           </div>
