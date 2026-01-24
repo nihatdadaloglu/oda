@@ -14,6 +14,8 @@ const Header = () => {
     { label: 'Eğitim ve Seminerler', path: '/egitim-seminerler' },
     { label: 'Duyurular', path: '/duyurular' },
     { label: 'Ziyaretler', path: '/ziyaretler' },
+    { label: 'Basında Biz', path: '/basinda-biz' },
+    { label: 'Vefat ve Başsağlığı', path: '/vefat-bassagligi' },
     { label: 'Ödeme', path: '/odeme' },
     { label: 'İletişim', path: '/iletisim' },
   ];
