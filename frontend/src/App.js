@@ -8,7 +8,7 @@ import HomePage from './pages/HomePage';
 import KurumsalPage from './pages/KurumsalPage';
 import YonetimKuruluPage from './pages/YonetimKuruluPage';
 import UyelikPage from './pages/UyelikPage';
-import HizmetlerPage from './pages/HizmetlerPage';
+import EgitimSeminerlerPage from './pages/EgitimSeminerlerPage';
 import DuyurularPage from './pages/DuyurularPage';
 import DuyuruDetayPage from './pages/DuyuruDetayPage';
 import ZiyaretlerPage from './pages/ZiyaretlerPage';
@@ -38,7 +38,7 @@ function App() {
               <Route path="/kurumsal" element={<KurumsalPage />} />
               <Route path="/yonetim-kurulu" element={<YonetimKuruluPage />} />
               <Route path="/uyelik" element={<UyelikPage />} />
-              <Route path="/hizmetler" element={<HizmetlerPage />} />
+              <Route path="/egitim-seminerler" element={<EgitimSeminerlerPage />} />
               <Route path="/duyurular" element={<DuyurularPage />} />
               <Route path="/duyurular/:id" element={<DuyuruDetayPage />} />
               <Route path="/ziyaretler" element={<ZiyaretlerPage />} />

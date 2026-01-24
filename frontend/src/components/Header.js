@@ -11,7 +11,7 @@ const Header = () => {
     { label: 'Kurumsal', path: '/kurumsal' },
     { label: 'Yönetim Kurulu', path: '/yonetim-kurulu' },
     { label: 'Üyelik', path: '/uyelik' },
-    { label: 'Hizmetler', path: '/hizmetler' },
+    { label: 'Eğitim ve Seminerler', path: '/egitim-seminerler' },
     { label: 'Duyurular', path: '/duyurular' },
     { label: 'Ziyaretler', path: '/ziyaretler' },
     { label: 'Ödeme', path: '/odeme' },
