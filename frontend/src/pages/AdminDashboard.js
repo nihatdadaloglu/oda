@@ -3,7 +3,7 @@ import { useNavigate, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   LogOut, FileText, Upload, Newspaper, Image, CreditCard,
-  Settings, Users, Mail, Edit, Trash2, Plus, UserCheck, GraduationCap
+  Settings, Users, Mail, Edit, Trash2, Plus, UserCheck, GraduationCap, X
 } from 'lucide-react';
 import apiClient from '../api/client';
 import { toast } from 'sonner';
@@ -406,8 +406,262 @@ const DocumentsManager = () => {
   );
 };
 
-// Visits, Payments, Contacts, Memberships, Settings (simplified versions)
-const VisitsManager = () => <div><h2 className="text-2xl font-bold">Ziyaretler Yönetimi</h2><p className="text-gray-600 mt-4">Ziyaret ekleme ve düzenleme özellikleri burada yer alacaktır.</p></div>;
+// Visits Manager
+const VisitsManager = () => {
+  const [visits, setVisits] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  const [uploadingImages, setUploadingImages] = useState(false);
+  const [formData, setFormData] = useState({
+    title: '',
+    date: '',
+    description: '',
+    cover_image: '',
+    gallery_images: []
+  });
+
+  useEffect(() => {
+    fetchVisits();
+  }, []);
+
+  const fetchVisits = async () => {
+    try {
+      const response = await apiClient.get('/api/visits');
+      setVisits(response.data.items);
+    } catch (error) {
+      toast.error('Ziyaretler yüklenemedi');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImageUpload = async (files, isGallery = false) => {
+    setUploadingImages(true);
+    try {
+      const uploadedUrls = [];
+      for (const file of files) {
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', file);
+        const response = await apiClient.post('/api/upload', uploadFormData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        uploadedUrls.push(response.data.file_url);
+      }
+      
+      if (isGallery) {
+        setFormData({ ...formData, gallery_images: [...formData.gallery_images, ...uploadedUrls] });
+      } else {
+        setFormData({ ...formData, cover_image: uploadedUrls[0] });
+      }
+      toast.success('Resim(ler) yüklendi');
+    } catch (error) {
+      toast.error('Resim yükleme başarısız');
+    } finally {
+      setUploadingImages(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingItem) {
+        await apiClient.put(`/api/visits/${editingItem.id}`, formData);
+        toast.success('Ziyaret güncellendi');
+      } else {
+        await apiClient.post('/api/visits', formData);
+        toast.success('Ziyaret eklendi');
+      }
+      setShowForm(false);
+      setEditingItem(null);
+      setFormData({ title: '', date: '', description: '', cover_image: '', gallery_images: [] });
+      fetchVisits();
+    } catch (error) {
+      toast.error('İşlem başarısız');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Bu ziyareti silmek istediğinizden emin misiniz?')) return;
+    try {
+      await apiClient.delete(`/api/visits/${id}`);
+      toast.success('Ziyaret silindi');
+      fetchVisits();
+    } catch (error) {
+      toast.error('Silme başarısız');
+    }
+  };
+
+  const handleEdit = (item) => {
+    setEditingItem(item);
+    setFormData({
+      title: item.title,
+      date: item.date.split('T')[0],
+      description: item.description,
+      cover_image: item.cover_image,
+      gallery_images: item.gallery_images || []
+    });
+    setShowForm(true);
+  };
+
+  const removeGalleryImage = (index) => {
+    const newGallery = [...formData.gallery_images];
+    newGallery.splice(index, 1);
+    setFormData({ ...formData, gallery_images: newGallery });
+  };
+
+  if (loading) return <div className="flex justify-center py-12"><div className="spinner"></div></div>;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Ziyaretler</h2>
+        <button
+          onClick={() => {
+            setShowForm(!showForm);
+            setEditingItem(null);
+            setFormData({ title: '', date: '', description: '', cover_image: '', gallery_images: [] });
+          }}
+          className="flex items-center space-x-2 px-4 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]"
+        >
+          <Plus size={20} />
+          <span>Yeni Ziyaret</span>
+        </button>
+      </div>
+
+      {showForm && (
+        <form onSubmit={handleSubmit} className="bg-white border rounded-lg p-6 mb-6">
+          <h3 className="font-semibold mb-4">{editingItem ? 'Ziyaret Düzenle' : 'Yeni Ziyaret Ekle'}</h3>
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Başlık"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              required
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <input
+              type="date"
+              value={formData.date}
+              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+              required
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <textarea
+              placeholder="Açıklama"
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              required
+              rows="4"
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            
+            {/* Cover Image */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Kapak Resmi</label>
+              {formData.cover_image ? (
+                <div className="relative inline-block">
+                  <img src={formData.cover_image} alt="Cover" className="w-32 h-32 object-cover rounded" />
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, cover_image: '' })}
+                    className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full p-1"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ) : (
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => e.target.files.length && handleImageUpload([e.target.files[0]], false)}
+                  disabled={uploadingImages}
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+              )}
+            </div>
+
+            {/* Gallery Images */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Galeri Resimleri</label>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {formData.gallery_images.map((img, idx) => (
+                  <div key={idx} className="relative">
+                    <img src={img} alt={`Gallery ${idx}`} className="w-24 h-24 object-cover rounded" />
+                    <button
+                      type="button"
+                      onClick={() => removeGalleryImage(idx)}
+                      className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full p-1"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => e.target.files.length && handleImageUpload(Array.from(e.target.files), true)}
+                disabled={uploadingImages}
+                className="w-full px-4 py-2 border rounded-md"
+              />
+            </div>
+
+            <div className="flex gap-2">
+              <button 
+                type="submit" 
+                disabled={uploadingImages}
+                className="px-6 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479] disabled:opacity-50"
+              >
+                {uploadingImages ? 'Yükleniyor...' : editingItem ? 'Güncelle' : 'Ekle'}
+              </button>
+              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2 border rounded-md">
+                İptal
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+
+      <div className="bg-white border rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Başlık</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tarih</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Resimler</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {visits.map((visit) => (
+              <tr key={visit.id}>
+                <td className="px-6 py-4 text-sm text-gray-900">{visit.title}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">
+                  {new Date(visit.date).toLocaleDateString('tr-TR')}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-600">
+                  {(visit.gallery_images?.length || 0) + 1} resim
+                </td>
+                <td className="px-6 py-4 text-sm text-right space-x-2">
+                  <button onClick={() => handleEdit(visit)} className="text-blue-600 hover:text-blue-800">
+                    <Edit size={18} />
+                  </button>
+                  <button onClick={() => handleDelete(visit.id)} className="text-red-600 hover:text-red-800">
+                    <Trash2 size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
 const PaymentsManager = () => <div><h2 className="text-2xl font-bold">Ödeme Kalemleri</h2><p className="text-gray-600 mt-4">Ödeme kalemi yönetimi burada yer alacaktır.</p></div>;
 
 // Trainings Manager
