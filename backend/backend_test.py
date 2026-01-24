@@ -3,7 +3,7 @@ import sys
 from datetime import datetime
 
 class KEESOAPITester:
-    def __init__(self, base_url="https://keeso-kurumsal.preview.emergentagent.com"):
+    def __init__(self, base_url="https://emlak-platform-3.preview.emergentagent.com"):
         self.base_url = base_url
         self.token = None
         self.tests_run = 0
