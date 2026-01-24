@@ -492,19 +492,19 @@ const TrainingsManager = () => {
     setShowForm(true);
   };
 
-  if (loading) return <div className=\"flex justify-center py-12\"><div className=\"spinner\"></div></div>;
+  if (loading) return <div className="flex justify-center py-12"><div className="spinner"></div></div>;
 
   return (
     <div>
-      <div className=\"flex items-center justify-between mb-6\">
-        <h2 className=\"text-2xl font-bold text-gray-900\">Eğitim ve Seminerler</h2>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Eğitim ve Seminerler</h2>
         <button
           onClick={() => {
             setShowForm(!showForm);
             setEditingItem(null);
             setFormData({ title: '', description: '', date: '', time: '', location: '', instructor: '', capacity: '', registration_link: '' });
           }}
-          className=\"flex items-center space-x-2 px-4 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]\"
+          className="flex items-center space-x-2 px-4 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]"
         >
           <Plus size={20} />
           <span>Yeni Eğitim</span>
@@ -512,74 +512,74 @@ const TrainingsManager = () => {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className=\"bg-white border rounded-lg p-6 mb-6\">
-          <h3 className=\"font-semibold mb-4\">{editingItem ? 'Eğitim Düzenle' : 'Yeni Eğitim Ekle'}</h3>
-          <div className=\"space-y-4\">
+        <form onSubmit={handleSubmit} className="bg-white border rounded-lg p-6 mb-6">
+          <h3 className="font-semibold mb-4">{editingItem ? 'Eğitim Düzenle' : 'Yeni Eğitim Ekle'}</h3>
+          <div className="space-y-4">
             <input
-              type=\"text\"
-              placeholder=\"Eğitim Başlığı\"
+              type="text"
+              placeholder="Eğitim Başlığı"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               required
-              className=\"w-full px-4 py-2 border rounded-md\"
+              className="w-full px-4 py-2 border rounded-md"
             />
             <textarea
-              placeholder=\"Açıklama\"
+              placeholder="Açıklama"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               required
-              rows=\"3\"
-              className=\"w-full px-4 py-2 border rounded-md\"
+              rows="3"
+              className="w-full px-4 py-2 border rounded-md"
             />
-            <div className=\"grid md:grid-cols-2 gap-4\">
+            <div className="grid md:grid-cols-2 gap-4">
               <input
-                type=\"date\"
+                type="date"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                 required
-                className=\"w-full px-4 py-2 border rounded-md\"
+                className="w-full px-4 py-2 border rounded-md"
               />
               <input
-                type=\"time\"
-                placeholder=\"Saat\"
+                type="time"
+                placeholder="Saat"
                 value={formData.time}
                 onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                className=\"w-full px-4 py-2 border rounded-md\"
+                className="w-full px-4 py-2 border rounded-md"
               />
             </div>
             <input
-              type=\"text\"
-              placeholder=\"Konum\"
+              type="text"
+              placeholder="Konum"
               value={formData.location}
               onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-              className=\"w-full px-4 py-2 border rounded-md\"
+              className="w-full px-4 py-2 border rounded-md"
             />
             <input
-              type=\"text\"
-              placeholder=\"Eğitmen\"
+              type="text"
+              placeholder="Eğitmen"
               value={formData.instructor}
               onChange={(e) => setFormData({ ...formData, instructor: e.target.value })}
-              className=\"w-full px-4 py-2 border rounded-md\"
+              className="w-full px-4 py-2 border rounded-md"
             />
             <input
-              type=\"number\"
-              placeholder=\"Kontenjan\"
+              type="number"
+              placeholder="Kontenjan"
               value={formData.capacity}
               onChange={(e) => setFormData({ ...formData, capacity: e.target.value })}
-              className=\"w-full px-4 py-2 border rounded-md\"
+              className="w-full px-4 py-2 border rounded-md"
             />
             <input
-              type=\"url\"
-              placeholder=\"Kayıt Linki\"
+              type="url"
+              placeholder="Kayıt Linki"
               value={formData.registration_link}
               onChange={(e) => setFormData({ ...formData, registration_link: e.target.value })}
-              className=\"w-full px-4 py-2 border rounded-md\"
+              className="w-full px-4 py-2 border rounded-md"
             />
-            <div className=\"flex gap-2\">
-              <button type=\"submit\" className=\"px-6 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]\">
+            <div className="flex gap-2">
+              <button type="submit" className="px-6 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]">
                 {editingItem ? 'Güncelle' : 'Ekle'}
               </button>
-              <button type=\"button\" onClick={() => setShowForm(false)} className=\"px-6 py-2 border rounded-md\">
+              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2 border rounded-md">
                 İptal
               </button>
             </div>
@@ -587,29 +587,29 @@ const TrainingsManager = () => {
         </form>
       )}
 
-      <div className=\"bg-white border rounded-lg overflow-hidden\">
-        <table className=\"min-w-full divide-y divide-gray-200\">
-          <thead className=\"bg-gray-50\">
+      <div className="bg-white border rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
             <tr>
-              <th className=\"px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase\">Başlık</th>
-              <th className=\"px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase\">Tarih</th>
-              <th className=\"px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase\">Konum</th>
-              <th className=\"px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase\">İşlemler</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Başlık</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tarih</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Konum</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">İşlemler</th>
             </tr>
           </thead>
-          <tbody className=\"divide-y divide-gray-200\">
+          <tbody className="divide-y divide-gray-200">
             {trainings.map((training) => (
               <tr key={training.id}>
-                <td className=\"px-6 py-4 text-sm text-gray-900\">{training.title}</td>
-                <td className=\"px-6 py-4 text-sm text-gray-600\">
+                <td className="px-6 py-4 text-sm text-gray-900">{training.title}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">
                   {new Date(training.date).toLocaleDateString('tr-TR')}
                 </td>
-                <td className=\"px-6 py-4 text-sm text-gray-600\">{training.location || '-'}</td>
-                <td className=\"px-6 py-4 text-sm text-right space-x-2\">
-                  <button onClick={() => handleEdit(training)} className=\"text-blue-600 hover:text-blue-800\">
+                <td className="px-6 py-4 text-sm text-gray-600">{training.location || '-'}</td>
+                <td className="px-6 py-4 text-sm text-right space-x-2">
+                  <button onClick={() => handleEdit(training)} className="text-blue-600 hover:text-blue-800">
                     <Edit size={18} />
                   </button>
-                  <button onClick={() => handleDelete(training.id)} className=\"text-red-600 hover:text-red-800\">
+                  <button onClick={() => handleDelete(training.id)} className="text-red-600 hover:text-red-800">
                     <Trash2 size={18} />
                   </button>
                 </td>
