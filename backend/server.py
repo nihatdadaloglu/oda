@@ -223,6 +223,21 @@ class TrainingCreate(BaseModel):
     cover_image: Optional[str] = None
     gallery_images: List[str] = []
 
+class PressCreate(BaseModel):
+    title: str
+    description: str
+    date: str
+    source: Optional[str] = None
+    source_url: Optional[str] = None
+    cover_image: Optional[str] = None
+
+class CondolenceCreate(BaseModel):
+    title: str
+    content: str
+    date: str
+    person_name: str
+    relation: Optional[str] = None
+
 class PageSectionCreate(BaseModel):
     page: str
     key: str
