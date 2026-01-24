@@ -232,6 +232,9 @@ class SettingsUpdate(BaseModel):
     email: Optional[str] = None
     whatsapp: Optional[str] = None
     map_location: Optional[str] = None
+    facebook: Optional[str] = None
+    youtube: Optional[str] = None
+    instagram: Optional[str] = None
 
 class ContactFormSubmit(BaseModel):
     name: str
@@ -288,6 +291,9 @@ async def startup_event():
             "email": "info@keeso.gov.tr",
             "whatsapp": "+90 5XX XXX XX XX",
             "map_location": "38.7312,35.4787",
+            "facebook": "https://facebook.com/keeso",
+            "youtube": "https://youtube.com/@keeso",
+            "instagram": "https://instagram.com/keeso",
             "created_at": datetime.utcnow()
         }
         await db.settings.insert_one(default_settings)
