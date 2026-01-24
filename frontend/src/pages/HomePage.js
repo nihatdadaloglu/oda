@@ -180,8 +180,6 @@ const HomePage = () => {
           )}
         </div>
       </section>
-        </div>
-      </section>
 
       {/* About Section */}
       <section className="bg-[#f8fafc] py-20">
