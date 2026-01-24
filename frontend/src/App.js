@@ -1,53 +1,58 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Toaster } from 'sonner';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+import KurumsalPage from './pages/KurumsalPage';
+import UyelikPage from './pages/UyelikPage';
+import HizmetlerPage from './pages/HizmetlerPage';
+import DuyurularPage from './pages/DuyurularPage';
+import DuyuruDetayPage from './pages/DuyuruDetayPage';
+import ZiyaretlerPage from './pages/ZiyaretlerPage';
+import ZiyaretDetayPage from './pages/ZiyaretDetayPage';
+import OdemePage from './pages/OdemePage';
+import IletisimPage from './pages/IletisimPage';
+import AdminLoginPage from './pages/AdminLoginPage';
+import AdminDashboard from './pages/AdminDashboard';
+import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <HelmetProvider>
+      <Router>
+        <div className="App min-h-screen flex flex-col bg-gray-50">
+          <Helmet>
+            <html lang="tr" />
+            <meta charSet="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+          </Helmet>
+          
+          <Header />
+          
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/kurumsal" element={<KurumsalPage />} />
+              <Route path="/uyelik" element={<UyelikPage />} />
+              <Route path="/hizmetler" element={<HizmetlerPage />} />
+              <Route path="/duyurular" element={<DuyurularPage />} />
+              <Route path="/duyurular/:id" element={<DuyuruDetayPage />} />
+              <Route path="/ziyaretler" element={<ZiyaretlerPage />} />
+              <Route path="/ziyaretler/:id" element={<ZiyaretDetayPage />} />
+              <Route path="/odeme" element={<OdemePage />} />
+              <Route path="/iletisim" element={<IletisimPage />} />
+              <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/admin/*" element={<AdminDashboard />} />
+            </Routes>
+          </main>
+          
+          <Footer />
+          <Toaster position="top-right" richColors />
+        </div>
+      </Router>
+    </HelmetProvider>
   );
 }
 
