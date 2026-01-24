@@ -1177,6 +1177,427 @@ const BoardMembersManager = () => {
 const ContactsViewer = () => <div><h2 className="text-2xl font-bold">İletişim Mesajları</h2><p className="text-gray-600 mt-4">Gelen iletişim formları burada görüntülenecektir.</p></div>;
 const MembershipsViewer = () => <div><h2 className="text-2xl font-bold">Üyelik Başvuruları</h2><p className="text-gray-600 mt-4">Gelen üyelik başvuruları burada görüntülenecektir.</p></div>;
 
+// Press Manager (Basında Biz)
+const PressManager = () => {
+  const [pressItems, setPressItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    date: '',
+    source: '',
+    source_url: '',
+    cover_image: ''
+  });
+
+  useEffect(() => {
+    fetchPressItems();
+  }, []);
+
+  const fetchPressItems = async () => {
+    try {
+      const response = await apiClient.get('/api/press');
+      setPressItems(response.data.items);
+    } catch (error) {
+      toast.error('Haberler yüklenemedi');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImageUpload = async (file) => {
+    setUploadingImage(true);
+    try {
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+      const response = await apiClient.post('/api/upload', uploadFormData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setFormData({ ...formData, cover_image: response.data.file_url });
+      toast.success('Resim yüklendi');
+    } catch (error) {
+      toast.error('Resim yükleme başarısız');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingItem) {
+        await apiClient.put(`/api/press/${editingItem.id}`, formData);
+        toast.success('Haber güncellendi');
+      } else {
+        await apiClient.post('/api/press', formData);
+        toast.success('Haber eklendi');
+      }
+      setShowForm(false);
+      setEditingItem(null);
+      setFormData({ title: '', description: '', date: '', source: '', source_url: '', cover_image: '' });
+      fetchPressItems();
+    } catch (error) {
+      toast.error('İşlem başarısız');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Bu haberi silmek istediğinizden emin misiniz?')) return;
+    try {
+      await apiClient.delete(`/api/press/${id}`);
+      toast.success('Haber silindi');
+      fetchPressItems();
+    } catch (error) {
+      toast.error('Silme başarısız');
+    }
+  };
+
+  const handleEdit = (item) => {
+    setEditingItem(item);
+    setFormData({
+      title: item.title,
+      description: item.description,
+      date: item.date.split('T')[0],
+      source: item.source || '',
+      source_url: item.source_url || '',
+      cover_image: item.cover_image || ''
+    });
+    setShowForm(true);
+  };
+
+  if (loading) return <div className="flex justify-center py-12"><div className="spinner"></div></div>;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Basında Biz</h2>
+        <button
+          onClick={() => {
+            setShowForm(!showForm);
+            setEditingItem(null);
+            setFormData({ title: '', description: '', date: '', source: '', source_url: '', cover_image: '' });
+          }}
+          className="flex items-center space-x-2 px-4 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]"
+        >
+          <Plus size={20} />
+          <span>Yeni Haber</span>
+        </button>
+      </div>
+
+      {showForm && (
+        <form onSubmit={handleSubmit} className="bg-white border rounded-lg p-6 mb-6">
+          <h3 className="font-semibold mb-4">{editingItem ? 'Haber Düzenle' : 'Yeni Haber Ekle'}</h3>
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Haber Başlığı"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              required
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <textarea
+              placeholder="Açıklama"
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              required
+              rows="4"
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <div className="grid md:grid-cols-2 gap-4">
+              <input
+                type="date"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                required
+                className="w-full px-4 py-2 border rounded-md"
+              />
+              <input
+                type="text"
+                placeholder="Kaynak (örn: Kayseri Olay)"
+                value={formData.source}
+                onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+                className="w-full px-4 py-2 border rounded-md"
+              />
+            </div>
+            <input
+              type="url"
+              placeholder="Haber Linki (opsiyonel)"
+              value={formData.source_url}
+              onChange={(e) => setFormData({ ...formData, source_url: e.target.value })}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+
+            {/* Cover Image */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Kapak Resmi</label>
+              {formData.cover_image ? (
+                <div className="relative inline-block">
+                  <img src={formData.cover_image} alt="Cover" className="w-32 h-32 object-cover rounded" />
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, cover_image: '' })}
+                    className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full p-1"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ) : (
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => e.target.files.length && handleImageUpload(e.target.files[0])}
+                  disabled={uploadingImage}
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+              )}
+            </div>
+
+            <div className="flex gap-2">
+              <button 
+                type="submit" 
+                disabled={uploadingImage}
+                className="px-6 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479] disabled:opacity-50"
+              >
+                {uploadingImage ? 'Yükleniyor...' : editingItem ? 'Güncelle' : 'Ekle'}
+              </button>
+              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2 border rounded-md">
+                İptal
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+
+      <div className="bg-white border rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Resim</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Başlık</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Kaynak</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tarih</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {pressItems.map((item) => (
+              <tr key={item.id}>
+                <td className="px-6 py-4">
+                  {item.cover_image ? (
+                    <img src={item.cover_image} alt={item.title} className="w-16 h-12 object-cover rounded" />
+                  ) : (
+                    <div className="w-16 h-12 bg-gray-200 rounded flex items-center justify-center text-gray-400">
+                      <Newspaper size={20} />
+                    </div>
+                  )}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-900">{item.title}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">{item.source || '-'}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">
+                  {new Date(item.date).toLocaleDateString('tr-TR')}
+                </td>
+                <td className="px-6 py-4 text-sm text-right space-x-2">
+                  <button onClick={() => handleEdit(item)} className="text-blue-600 hover:text-blue-800">
+                    <Edit size={18} />
+                  </button>
+                  <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:text-red-800">
+                    <Trash2 size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+// Condolences Manager (Vefat ve Başsağlığı)
+const CondolencesManager = () => {
+  const [condolences, setCondolences] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    date: '',
+    person_name: '',
+    relation: ''
+  });
+
+  useEffect(() => {
+    fetchCondolences();
+  }, []);
+
+  const fetchCondolences = async () => {
+    try {
+      const response = await apiClient.get('/api/condolences');
+      setCondolences(response.data.items);
+    } catch (error) {
+      toast.error('Kayıtlar yüklenemedi');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingItem) {
+        await apiClient.put(`/api/condolences/${editingItem.id}`, formData);
+        toast.success('Kayıt güncellendi');
+      } else {
+        await apiClient.post('/api/condolences', formData);
+        toast.success('Kayıt eklendi');
+      }
+      setShowForm(false);
+      setEditingItem(null);
+      setFormData({ title: '', content: '', date: '', person_name: '', relation: '' });
+      fetchCondolences();
+    } catch (error) {
+      toast.error('İşlem başarısız');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Bu kaydı silmek istediğinizden emin misiniz?')) return;
+    try {
+      await apiClient.delete(`/api/condolences/${id}`);
+      toast.success('Kayıt silindi');
+      fetchCondolences();
+    } catch (error) {
+      toast.error('Silme başarısız');
+    }
+  };
+
+  const handleEdit = (item) => {
+    setEditingItem(item);
+    setFormData({
+      title: item.title,
+      content: item.content,
+      date: item.date.split('T')[0],
+      person_name: item.person_name,
+      relation: item.relation || ''
+    });
+    setShowForm(true);
+  };
+
+  if (loading) return <div className="flex justify-center py-12"><div className="spinner"></div></div>;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Vefat ve Başsağlığı</h2>
+        <button
+          onClick={() => {
+            setShowForm(!showForm);
+            setEditingItem(null);
+            setFormData({ title: '', content: '', date: '', person_name: '', relation: '' });
+          }}
+          className="flex items-center space-x-2 px-4 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]"
+        >
+          <Plus size={20} />
+          <span>Yeni Kayıt</span>
+        </button>
+      </div>
+
+      {showForm && (
+        <form onSubmit={handleSubmit} className="bg-white border rounded-lg p-6 mb-6">
+          <h3 className="font-semibold mb-4">{editingItem ? 'Kayıt Düzenle' : 'Yeni Kayıt Ekle'}</h3>
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Başlık (örn: Başsağlığı Mesajı)"
+              value={formData.title}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              required
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <div className="grid md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Merhum/Merhumun Adı"
+                value={formData.person_name}
+                onChange={(e) => setFormData({ ...formData, person_name: e.target.value })}
+                required
+                className="w-full px-4 py-2 border rounded-md"
+              />
+              <input
+                type="text"
+                placeholder="Yakınlık (örn: Üyemizin babası)"
+                value={formData.relation}
+                onChange={(e) => setFormData({ ...formData, relation: e.target.value })}
+                className="w-full px-4 py-2 border rounded-md"
+              />
+            </div>
+            <input
+              type="date"
+              value={formData.date}
+              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+              required
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <textarea
+              placeholder="İçerik (taziye mesajı)"
+              value={formData.content}
+              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+              required
+              rows="5"
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <div className="flex gap-2">
+              <button type="submit" className="px-6 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]">
+                {editingItem ? 'Güncelle' : 'Ekle'}
+              </button>
+              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2 border rounded-md">
+                İptal
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+
+      <div className="bg-white border rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Başlık</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Merhum</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Tarih</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {condolences.map((item) => (
+              <tr key={item.id}>
+                <td className="px-6 py-4 text-sm text-gray-900">{item.title}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">{item.person_name}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">
+                  {new Date(item.date).toLocaleDateString('tr-TR')}
+                </td>
+                <td className="px-6 py-4 text-sm text-right space-x-2">
+                  <button onClick={() => handleEdit(item)} className="text-blue-600 hover:text-blue-800">
+                    <Edit size={18} />
+                  </button>
+                  <button onClick={() => handleDelete(item.id)} className="text-red-600 hover:text-red-800">
+                    <Trash2 size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
 // Settings Manager
 const SettingsManager = () => {
   const [settings, setSettings] = useState(null);
