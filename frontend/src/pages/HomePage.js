@@ -114,24 +114,24 @@ const HomePage = () => {
       </section>
 
       {/* Başkan'dan Mesaj */}
-      <section className="bg-gradient-to-r from-[#f8fafc] to-white py-16 border-y border-gray-100">
+      <section className="bg-gradient-to-r from-[#f8fafc] to-white py-12 border-y border-gray-100">
         <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-5 gap-12 items-center">
-            <div className="lg:col-span-2">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a] to-[#dc2626] rounded-3xl transform rotate-3"></div>
+          <div className="grid lg:grid-cols-3 gap-8 items-center">
+            <div className="lg:col-span-1">
+              <div className="relative max-w-sm mx-auto">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a] to-[#dc2626] rounded-2xl transform rotate-2"></div>
                 <img
-                  src="https://customer-assets.emergentagent.com/job_keeso-kurumsal/artifacts/na1b4co3_IMG_1666.JPG"
+                  src="https://customer-assets.emergentagant.com/job_keeso-kurumsal/artifacts/na1b4co3_IMG_1666.JPG"
                   alt="KEESO Başkanı"
-                  className="relative rounded-3xl shadow-2xl w-full object-cover aspect-[3/4]"
+                  className="relative rounded-2xl shadow-xl w-full object-cover aspect-[3/4]"
                 />
               </div>
             </div>
-            <div className="lg:col-span-3">
-              <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a] mb-4">
+            <div className="lg:col-span-2">
+              <h2 className="h-heading text-2xl sm:text-3xl font-bold text-[#1e3a8a] mb-4">
                 Başkan'dan Mesaj
               </h2>
-              <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+              <div className="space-y-3 text-base text-gray-700 leading-relaxed">
                 <p>
                   Değerli Üyelerimiz ve Ziyaretçilerimiz,
                 </p>
@@ -145,7 +145,7 @@ const HomePage = () => {
                   Odamız, üyelerimize en iyi hizmeti sunmak, sektörel gelişmeleri takip etmek ve 
                   meslektaşlarımızın sorunlarına çözüm üretmek için kesintisiz çalışmalarına devam etmektedir.
                 </p>
-                <p className="font-semibold text-[#1e3a8a] mt-6">
+                <p className="font-semibold text-[#1e3a8a] mt-4">
                   Saygılarımla,
                 </p>
                 <p className="font-bold text-gray-900">
