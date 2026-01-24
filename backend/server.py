@@ -240,20 +240,26 @@ async def startup_event():
             "email": "admin@keeso.gov.tr",
             "password_hash": get_password_hash("admin123"),
             "role": "admin",
-            "name": "Admin Kullanıcı",
+            "name": "Admin Kullanıcı 1",
             "created_at": datetime.utcnow()
         }
         admin2 = {
-            "email": "editor@keeso.gov.tr",
-            "password_hash": get_password_hash("editor123"),
-            "role": "editor",
-            "name": "Editör Kullanıcı",
+            "email": "admin2@keeso.gov.tr",
+            "password_hash": get_password_hash("admin123"),
+            "role": "admin",
+            "name": "Admin Kullanıcı 2",
             "created_at": datetime.utcnow()
         }
         await db.users.insert_many([admin1, admin2])
         print("✅ Default admin users created")
-        print("   Admin: admin@keeso.gov.tr / admin123")
-        print("   Editor: editor@keeso.gov.tr / editor123")
+        print("   Admin 1: admin@keeso.gov.tr / admin123")
+        print("   Admin 2: admin2@keeso.gov.tr / admin123")
+    
+    # Update existing editor to admin
+    await db.users.update_one(
+        {"email": "editor@keeso.gov.tr"},
+        {"$set": {"role": "admin", "name": "Admin Kullanıcı 2"}}
+    )
     
     # Seed default settings
     settings = await db.settings.find_one({})

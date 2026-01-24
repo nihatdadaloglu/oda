@@ -80,9 +80,9 @@ const AdminLoginPage = () => {
             </form>
 
             <div className="mt-6 text-center text-sm text-gray-600">
-              <p>Varsayılan Kullanıcılar:</p>
+              <p>Varsayılan Admin Kullanıcıları:</p>
               <p className="text-xs mt-2">admin@keeso.gov.tr / admin123</p>
-              <p className="text-xs">editor@keeso.gov.tr / editor123</p>
+              <p className="text-xs">admin2@keeso.gov.tr / admin123</p>
             </div>
           </div>
         </div>
