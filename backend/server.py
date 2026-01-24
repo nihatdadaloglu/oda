@@ -203,6 +203,14 @@ class PaymentItemCreate(BaseModel):
     external_url: str
     button_text: str = "Ödeme Yap"
 
+class BoardMemberCreate(BaseModel):
+    name: str
+    position: str
+    board_type: str  # 'yonetim' or 'denetim'
+    photo: Optional[str] = None
+    bio: Optional[str] = None
+    order: int = 0
+
 class PageSectionCreate(BaseModel):
     page: str
     key: str
