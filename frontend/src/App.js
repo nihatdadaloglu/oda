@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import KurumsalPage from './pages/KurumsalPage';
+import YonetimKuruluPage from './pages/YonetimKuruluPage';
 import UyelikPage from './pages/UyelikPage';
 import HizmetlerPage from './pages/HizmetlerPage';
 import DuyurularPage from './pages/DuyurularPage';
@@ -35,6 +36,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/kurumsal" element={<KurumsalPage />} />
+              <Route path="/yonetim-kurulu" element={<YonetimKuruluPage />} />
               <Route path="/uyelik" element={<UyelikPage />} />
               <Route path="/hizmetler" element={<HizmetlerPage />} />
               <Route path="/duyurular" element={<DuyurularPage />} />
