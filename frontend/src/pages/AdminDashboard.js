@@ -3,7 +3,7 @@ import { useNavigate, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   LogOut, FileText, Upload, Newspaper, Image, CreditCard,
-  Settings, Users, Mail, Edit, Trash2, Plus, UserCheck, GraduationCap, X
+  Settings, Users, Mail, Edit, Trash2, Plus, UserCheck, GraduationCap, X, Heart
 } from 'lucide-react';
 import apiClient from '../api/client';
 import { toast } from 'sonner';
