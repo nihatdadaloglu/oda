@@ -13,6 +13,8 @@ import DuyurularPage from './pages/DuyurularPage';
 import DuyuruDetayPage from './pages/DuyuruDetayPage';
 import ZiyaretlerPage from './pages/ZiyaretlerPage';
 import ZiyaretDetayPage from './pages/ZiyaretDetayPage';
+import BasindaBizPage from './pages/BasindaBizPage';
+import VefatBassagligiPage from './pages/VefatBassagligiPage';
 import OdemePage from './pages/OdemePage';
 import IletisimPage from './pages/IletisimPage';
 import AdminLoginPage from './pages/AdminLoginPage';
