@@ -87,7 +87,7 @@ const HomePage = () => {
         {/* Transparan Logo - Sağ Taraf */}
         <div className="absolute right-12 lg:right-24 xl:right-32 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block">
           <div 
-            className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] rounded-full opacity-10"
+            className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] rounded-full opacity-[0.12]"
             style={{
               backgroundImage: 'url(/keeso-logo.png)',
               backgroundSize: 'contain',
