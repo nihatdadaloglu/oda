@@ -604,6 +604,94 @@ async def delete_training(id: str):
         raise HTTPException(status_code=404, detail="Eğitim bulunamadı")
     return {"message": "Eğitim silindi"}
 
+# Press (Basında Biz) CRUD
+@app.get("/api/press")
+async def get_press(limit: int = 20, skip: int = 0):
+    total = await db.press.count_documents({})
+    press_items = await db.press.find({}).sort("date", -1).skip(skip).limit(limit).to_list(length=limit)
+    return {
+        "items": [serialize_doc(p) for p in press_items],
+        "total": total
+    }
+
+@app.get("/api/press/{id}")
+async def get_press_item(id: str):
+    press_item = await db.press.find_one({"_id": ObjectId(id)})
+    if not press_item:
+        raise HTTPException(status_code=404, detail="Haber bulunamadı")
+    return serialize_doc(press_item)
+
+@app.post("/api/press")
+async def create_press(press: PressCreate):
+    new_press = {
+        **press.dict(),
+        "created_at": datetime.utcnow()
+    }
+    result = await db.press.insert_one(new_press)
+    new_press["id"] = str(result.inserted_id)
+    return serialize_doc(new_press)
+
+@app.put("/api/press/{id}")
+async def update_press(id: str, press: PressCreate):
+    result = await db.press.update_one(
+        {"_id": ObjectId(id)},
+        {"$set": {**press.dict(), "updated_at": datetime.utcnow()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Haber bulunamadı")
+    return {"message": "Haber güncellendi"}
+
+@app.delete("/api/press/{id}")
+async def delete_press(id: str):
+    result = await db.press.delete_one({"_id": ObjectId(id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Haber bulunamadı")
+    return {"message": "Haber silindi"}
+
+# Condolences (Vefat ve Başsağlığı) CRUD
+@app.get("/api/condolences")
+async def get_condolences(limit: int = 20, skip: int = 0):
+    total = await db.condolences.count_documents({})
+    condolences = await db.condolences.find({}).sort("date", -1).skip(skip).limit(limit).to_list(length=limit)
+    return {
+        "items": [serialize_doc(c) for c in condolences],
+        "total": total
+    }
+
+@app.get("/api/condolences/{id}")
+async def get_condolence(id: str):
+    condolence = await db.condolences.find_one({"_id": ObjectId(id)})
+    if not condolence:
+        raise HTTPException(status_code=404, detail="Kayıt bulunamadı")
+    return serialize_doc(condolence)
+
+@app.post("/api/condolences")
+async def create_condolence(condolence: CondolenceCreate):
+    new_condolence = {
+        **condolence.dict(),
+        "created_at": datetime.utcnow()
+    }
+    result = await db.condolences.insert_one(new_condolence)
+    new_condolence["id"] = str(result.inserted_id)
+    return serialize_doc(new_condolence)
+
+@app.put("/api/condolences/{id}")
+async def update_condolence(id: str, condolence: CondolenceCreate):
+    result = await db.condolences.update_one(
+        {"_id": ObjectId(id)},
+        {"$set": {**condolence.dict(), "updated_at": datetime.utcnow()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Kayıt bulunamadı")
+    return {"message": "Kayıt güncellendi"}
+
+@app.delete("/api/condolences/{id}")
+async def delete_condolence(id: str):
+    result = await db.condolences.delete_one({"_id": ObjectId(id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Kayıt bulunamadı")
+    return {"message": "Kayıt silindi"}
+
 # Page Sections CRUD
 @app.get("/api/page-sections")
 async def get_page_sections(page: Optional[str] = None):
