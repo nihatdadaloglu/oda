@@ -85,11 +85,11 @@ const HomePage = () => {
           />
         </div>
         {/* Transparan Logo - Sağ Taraf */}
-        <div className="absolute right-12 lg:right-24 xl:right-32 top-1/2 -translate-y-1/2 opacity-10 pointer-events-none hidden lg:block">
+        <div className="absolute right-12 lg:right-24 xl:right-32 top-1/2 -translate-y-1/2 opacity-[0.07] pointer-events-none hidden lg:block">
           <img
             src="/keeso-logo.png"
             alt=""
-            className="w-[350px] h-[350px] xl:w-[400px] xl:h-[400px] object-contain"
+            className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] object-contain brightness-200"
           />
         </div>
         <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12 py-20 sm:py-28">
