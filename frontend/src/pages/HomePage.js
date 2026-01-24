@@ -64,41 +64,39 @@ const HomePage = () => {
         />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h1 className="h-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1e3a8a] tracking-tight">
-                Kayseri'de Emlak Sektörünün Güçlü Çatısı
-              </h1>
-              <p className="mt-4 text-lg text-gray-700 max-w-prose">
-                Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası olarak, sektörün profesyonel ve etik çerçevede gelişmesi için çalışıyoruz.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  to="/uyelik"
-                  data-testid="hero-basvuru-cta"
-                  className="inline-flex items-center px-6 py-3 bg-[#1e3a8a] text-white font-medium rounded-md hover:bg-[#1b3479] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1e3a8a] transition-colors"
-                >
-                  Üyelik Başvurusu
-                  <ChevronRight size={20} className="ml-2" />
-                </Link>
-                <Link
-                  to="/duyurular"
-                  data-testid="hero-duyurular-cta"
-                  className="inline-flex items-center px-6 py-3 border border-[#1e3a8a] text-[#1e3a8a] font-medium rounded-md hover:bg-gray-50 transition-colors"
-                >
-                  Duyurular
-                </Link>
-              </div>
-            </div>
-            <div className="aspect-[16/10] rounded-lg overflow-hidden border border-gray-200 shadow-sm">
-              <img
-                src="/images/erciyes-hero.jpg"
-                alt="Kayseri Erciyes Dağı"
-                className="w-full h-full object-cover"
-              />
+      {/* Hero Section - Full Width with Overlay */}
+      <section className="relative bg-[#1e3a8a] text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <img
+            src="/images/erciyes-hero.jpg"
+            alt="Kayseri Erciyes Dağı"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12 py-20 sm:py-28">
+          <div className="max-w-3xl">
+            <h1 className="h-heading text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+              Kayseri'de Emlak Sektörünün Güçlü Çatısı
+            </h1>
+            <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+              Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası olarak, sektörün profesyonel ve etik çerçevede gelişmesi için çalışıyoruz.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/uyelik"
+                data-testid="hero-basvuru-cta"
+                className="inline-flex items-center px-8 py-4 bg-[#dc2626] text-white font-semibold text-lg rounded-lg hover:bg-[#b91c1c] shadow-lg transition-all"
+              >
+                Üyelik Başvurusu
+                <ChevronRight size={24} className="ml-2" />
+              </Link>
+              <Link
+                to="/duyurular"
+                data-testid="hero-duyurular-cta"
+                className="inline-flex items-center px-8 py-4 bg-white text-[#1e3a8a] font-semibold text-lg rounded-lg hover:bg-gray-100 transition-all"
+              >
+                Duyurular
+              </Link>
             </div>
           </div>
         </div>
