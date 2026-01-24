@@ -9,6 +9,7 @@ const Header = () => {
   const navItems = [
     { label: 'Ana Sayfa', path: '/' },
     { label: 'Kurumsal', path: '/kurumsal' },
+    { label: 'Yönetim Kurulu', path: '/yonetim-kurulu' },
     { label: 'Üyelik', path: '/uyelik' },
     { label: 'Hizmetler', path: '/hizmetler' },
     { label: 'Duyurular', path: '/duyurular' },
