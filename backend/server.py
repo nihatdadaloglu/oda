@@ -211,6 +211,16 @@ class BoardMemberCreate(BaseModel):
     bio: Optional[str] = None
     order: int = 0
 
+class TrainingCreate(BaseModel):
+    title: str
+    description: str
+    date: str
+    time: Optional[str] = None
+    location: Optional[str] = None
+    instructor: Optional[str] = None
+    capacity: Optional[int] = None
+    registration_link: Optional[str] = None
+
 class PageSectionCreate(BaseModel):
     page: str
     key: str
@@ -530,6 +540,46 @@ async def delete_board_member(id: str):
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Üye bulunamadı")
     return {"message": "Üye silindi"}
+
+# Trainings CRUD
+@app.get("/api/trainings")
+async def get_trainings():
+    trainings = await db.trainings.find({}).sort("date", -1).to_list(length=100)
+    return [serialize_doc(t) for t in trainings]
+
+@app.get("/api/trainings/{id}")
+async def get_training(id: str):
+    training = await db.trainings.find_one({"_id": ObjectId(id)})
+    if not training:
+        raise HTTPException(status_code=404, detail="Eğitim bulunamadı")
+    return serialize_doc(training)
+
+@app.post("/api/trainings")
+async def create_training(training: TrainingCreate):
+    new_training = {
+        **training.dict(),
+        "created_at": datetime.utcnow()
+    }
+    result = await db.trainings.insert_one(new_training)
+    new_training["id"] = str(result.inserted_id)
+    return serialize_doc(new_training)
+
+@app.put("/api/trainings/{id}")
+async def update_training(id: str, training: TrainingCreate):
+    result = await db.trainings.update_one(
+        {"_id": ObjectId(id)},
+        {"$set": {**training.dict(), "updated_at": datetime.utcnow()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Eğitim bulunamadı")
+    return {"message": "Eğitim güncellendi"}
+
+@app.delete("/api/trainings/{id}")
+async def delete_training(id: str):
+    result = await db.trainings.delete_one({"_id": ObjectId(id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Eğitim bulunamadı")
+    return {"message": "Eğitim silindi"}
 
 # Page Sections CRUD
 @app.get("/api/page-sections")
