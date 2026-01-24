@@ -3,7 +3,7 @@ import { useNavigate, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
   LogOut, FileText, Upload, Newspaper, Image, CreditCard,
-  Settings, Users, Mail, Edit, Trash2, Plus, UserCheck
+  Settings, Users, Mail, Edit, Trash2, Plus, UserCheck, GraduationCap
 } from 'lucide-react';
 import apiClient from '../api/client';
 import { toast } from 'sonner';
@@ -65,6 +65,7 @@ const AdminDashboard = () => {
             <Route path="/" element={<AdminHome />} />
             <Route path="/announcements" element={<AnnouncementsManager />} />
             <Route path="/documents" element={<DocumentsManager />} />
+            <Route path="/trainings" element={<TrainingsManager />} />
             <Route path="/visits" element={<VisitsManager />} />
             <Route path="/payments" element={<PaymentsManager />} />
             <Route path="/board-members" element={<BoardMembersManager />} />
@@ -84,8 +85,9 @@ const AdminHome = () => {
 
   const modules = [
     { icon: Newspaper, title: 'Duyurular', path: '/admin/announcements', color: 'text-blue-600' },
+    { icon: GraduationCap, title: 'Eğitim ve Seminerler', path: '/admin/trainings', color: 'text-purple-600' },
     { icon: FileText, title: 'Belgeler', path: '/admin/documents', color: 'text-green-600' },
-    { icon: Image, title: 'Ziyaretler', path: '/admin/visits', color: 'text-purple-600' },
+    { icon: Image, title: 'Ziyaretler', path: '/admin/visits', color: 'text-pink-600' },
     { icon: CreditCard, title: 'Ödeme Kalemleri', path: '/admin/payments', color: 'text-orange-600' },
     { icon: UserCheck, title: 'Yönetim & Denetim Kurulu', path: '/admin/board-members', color: 'text-teal-600' },
     { icon: Mail, title: 'İletişim Mesajları', path: '/admin/contacts', color: 'text-red-600' },

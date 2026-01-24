@@ -32,10 +32,10 @@ const HomePage = () => {
       color: 'text-[#1e3a8a]',
     },
     {
-      icon: FileText,
-      title: 'Belgeler',
-      description: 'Resmi belgelere ulaşın',
-      link: '/hizmetler',
+      icon: Calendar,
+      title: 'Eğitim ve Seminerler',
+      description: 'Eğitim programlarına katılın',
+      link: '/egitim-seminerler',
       color: 'text-[#dc2626]',
     },
     {
