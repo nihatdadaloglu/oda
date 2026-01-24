@@ -814,6 +814,170 @@ const BoardMembersManager = () => {
 
 const ContactsViewer = () => <div><h2 className="text-2xl font-bold">İletişim Mesajları</h2><p className="text-gray-600 mt-4">Gelen iletişim formları burada görüntülenecektir.</p></div>;
 const MembershipsViewer = () => <div><h2 className="text-2xl font-bold">Üyelik Başvuruları</h2><p className="text-gray-600 mt-4">Gelen üyelik başvuruları burada görüntülenecektir.</p></div>;
-const SettingsManager = () => <div><h2 className="text-2xl font-bold">Site Ayarları</h2><p className="text-gray-600 mt-4">İletişim bilgileri ve diğer ayarlar burada düzenlenecektir.</p></div>;
+
+// Settings Manager
+const SettingsManager = () => {
+  const [settings, setSettings] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [formData, setFormData] = useState({
+    address: '',
+    phone: '',
+    email: '',
+    whatsapp: '',
+    map_location: '',
+    facebook: '',
+    youtube: '',
+    instagram: ''
+  });
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await apiClient.get('/api/settings');
+      setSettings(response.data);
+      setFormData({
+        address: response.data.address || '',
+        phone: response.data.phone || '',
+        email: response.data.email || '',
+        whatsapp: response.data.whatsapp || '',
+        map_location: response.data.map_location || '',
+        facebook: response.data.facebook || '',
+        youtube: response.data.youtube || '',
+        instagram: response.data.instagram || ''
+      });
+    } catch (error) {
+      toast.error('Ayarlar yüklenemedi');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await apiClient.put('/api/settings', formData);
+      toast.success('Ayarlar güncellendi');
+      fetchSettings();
+    } catch (error) {
+      toast.error('Güncelleme başarısız');
+    }
+  };
+
+  if (loading) return <div className="flex justify-center py-12"><div className="spinner"></div></div>;
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">Site Ayarları</h2>
+
+      <form onSubmit={handleSubmit} className="bg-white border rounded-lg p-6">
+        <div className="space-y-6">
+          {/* İletişim Bilgileri */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">İletişim Bilgileri</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Adres</label>
+                <textarea
+                  value={formData.address}
+                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  rows="2"
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Telefon</label>
+                  <input
+                    type="text"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-4 py-2 border rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">E-posta</label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-2 border rounded-md"
+                  />
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">WhatsApp</label>
+                  <input
+                    type="text"
+                    value={formData.whatsapp}
+                    onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                    className="w-full px-4 py-2 border rounded-md"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Harita Konumu (lat,lng)</label>
+                  <input
+                    type="text"
+                    value={formData.map_location}
+                    onChange={(e) => setFormData({ ...formData, map_location: e.target.value })}
+                    placeholder="38.7312,35.4787"
+                    className="w-full px-4 py-2 border rounded-md"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Sosyal Medya */}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Sosyal Medya Linkleri</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Facebook</label>
+                <input
+                  type="url"
+                  value={formData.facebook}
+                  onChange={(e) => setFormData({ ...formData, facebook: e.target.value })}
+                  placeholder="https://facebook.com/keeso"
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">YouTube</label>
+                <input
+                  type="url"
+                  value={formData.youtube}
+                  onChange={(e) => setFormData({ ...formData, youtube: e.target.value })}
+                  placeholder="https://youtube.com/@keeso"
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Instagram</label>
+                <input
+                  type="url"
+                  value={formData.instagram}
+                  onChange={(e) => setFormData({ ...formData, instagram: e.target.value })}
+                  placeholder="https://instagram.com/keeso"
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="px-6 py-3 bg-[#1e3a8a] text-white font-medium rounded-md hover:bg-[#1b3479]"
+          >
+            Ayarları Kaydet
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default AdminDashboard;
