@@ -224,8 +224,8 @@ const HomePage = () => {
               </div>
               <div className="bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition-shadow">
                 <Phone size={40} className="text-[#dc2626] mx-auto mb-4" />
-                <p className="text-base font-semibold text-gray-700 mb-1">7/24</p>
-                <p className="text-base font-semibold text-gray-700">Destek</p>
+                <p className="text-base font-semibold text-gray-700 mb-1">Denetim</p>
+                <p className="text-base font-semibold text-gray-700">Kontrol</p>
               </div>
             </div>
           </div>
