@@ -84,6 +84,14 @@ const HomePage = () => {
             className="w-full h-full object-cover"
           />
         </div>
+        {/* Transparan Logo - Sağ Taraf */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-15 pointer-events-none hidden lg:block">
+          <img
+            src="/keeso-logo.png"
+            alt=""
+            className="w-[400px] h-[400px] object-contain"
+          />
+        </div>
         <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12 py-20 sm:py-28">
           <div className="max-w-3xl">
             <h1 className="h-heading text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
