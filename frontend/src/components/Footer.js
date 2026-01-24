@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Youtube, Instagram } from 'lucide-react';
 import apiClient from '../api/client';
 
 const Footer = () => {
@@ -93,10 +93,47 @@ const Footer = () => {
             <h3 className="h-heading text-base font-semibold text-[#1e3a8a] mb-4">
               Hakkımızda
             </h3>
-            <p className="text-sm text-gray-700 leading-relaxed">
+            <p className="text-sm text-gray-700 leading-relaxed mb-4">
               KEESO, Kayseri'de faaliyet gösteren emlak danışmanlarının resmi meslek kuruluşudur.
               Sektörün düzenli ve etik çerçevede gelişmesini sağlamaktayız.
             </p>
+            
+            {/* Social Media Links */}
+            <div className="flex items-center space-x-3">
+              {settings?.facebook && (
+                <a
+                  href={settings.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-[#1e3a8a] text-white rounded-full flex items-center justify-center hover:bg-[#1b3479] transition-colors"
+                  aria-label="Facebook"
+                >
+                  <Facebook size={20} />
+                </a>
+              )}
+              {settings?.youtube && (
+                <a
+                  href={settings.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-[#dc2626] text-white rounded-full flex items-center justify-center hover:bg-[#b91c1c] transition-colors"
+                  aria-label="YouTube"
+                >
+                  <Youtube size={20} />
+                </a>
+              )}
+              {settings?.instagram && (
+                <a
+                  href={settings.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-500 text-white rounded-full flex items-center justify-center hover:from-purple-700 hover:to-pink-600 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram size={20} />
+                </a>
+              )}
+            </div>
           </div>
         </div>
 
