@@ -23,7 +23,7 @@ const Footer = () => {
     { label: 'Ana Sayfa', path: '/' },
     { label: 'Kurumsal', path: '/kurumsal' },
     { label: 'Üyelik', path: '/uyelik' },
-    { label: 'Hizmetler', path: '/hizmetler' },
+    { label: 'Eğitim ve Seminerler', path: '/egitim-seminerler' },
     { label: 'Duyurular', path: '/duyurular' },
     { label: 'İletişim', path: '/iletisim' },
   ];
