@@ -113,6 +113,50 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Başkan'dan Mesaj */}
+      <section className="bg-gradient-to-r from-[#f8fafc] to-white py-16 border-y border-gray-100">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+          <div className="grid lg:grid-cols-5 gap-12 items-center">
+            <div className="lg:col-span-2">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a] to-[#dc2626] rounded-3xl transform rotate-3"></div>
+                <img
+                  src="https://customer-assets.emergentagent.com/job_keeso-kurumsal/artifacts/na1b4co3_IMG_1666.JPG"
+                  alt="KEESO Başkanı"
+                  className="relative rounded-3xl shadow-2xl w-full object-cover aspect-[3/4]"
+                />
+              </div>
+            </div>
+            <div className="lg:col-span-3">
+              <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a] mb-4">
+                Başkan'dan Mesaj
+              </h2>
+              <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+                <p>
+                  Değerli Üyelerimiz ve Ziyaretçilerimiz,
+                </p>
+                <p>
+                  Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası olarak, sektörümüzün gelişimi ve 
+                  üyelerimizin haklarının korunması için var gücümüzle çalışmaktayız. Emlak sektöründe 
+                  profesyonelleşme, etik değerlere bağlılık ve sürekli gelişim ilkelerimizin merkezinde 
+                  yer almaktadır.
+                </p>
+                <p>
+                  Odamız, üyelerimize en iyi hizmeti sunmak, sektörel gelişmeleri takip etmek ve 
+                  meslektaşlarımızın sorunlarına çözüm üretmek için kesintisiz çalışmalarına devam etmektedir.
+                </p>
+                <p className="font-semibold text-[#1e3a8a] mt-6">
+                  Saygılarımla,
+                </p>
+                <p className="font-bold text-gray-900">
+                  KEESO Başkanı
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Actions */}
       <section className="bg-gray-50 py-16">
         <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
