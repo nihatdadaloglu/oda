@@ -121,7 +121,7 @@ const HomePage = () => {
               <div className="relative max-w-sm mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1e3a8a] to-[#dc2626] rounded-2xl transform rotate-2"></div>
                 <img
-                  src="https://customer-assets.emergentagant.com/job_keeso-kurumsal/artifacts/na1b4co3_IMG_1666.JPG"
+                  src="https://customer-assets.emergentagent.com/job_keeso-kurumsal/artifacts/na1b4co3_IMG_1666.JPG"
                   alt="KEESO Başkanı"
                   className="relative rounded-2xl shadow-xl w-full object-cover aspect-[3/4]"
                 />
