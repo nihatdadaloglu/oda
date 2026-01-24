@@ -45,6 +45,8 @@ function App() {
               <Route path="/duyurular/:id" element={<DuyuruDetayPage />} />
               <Route path="/ziyaretler" element={<ZiyaretlerPage />} />
               <Route path="/ziyaretler/:id" element={<ZiyaretDetayPage />} />
+              <Route path="/basinda-biz" element={<BasindaBizPage />} />
+              <Route path="/vefat-bassagligi" element={<VefatBassagligiPage />} />
               <Route path="/odeme" element={<OdemePage />} />
               <Route path="/iletisim" element={<IletisimPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
