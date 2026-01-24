@@ -1,19 +1,15 @@
 [
   {
-    "content": "Phase 2: Get design guidelines from design_agent",
+    "content": "Phase 2: Backend Implementation - Models, APIs, Auth, File Upload",
     "status": "completed"
   },
   {
-    "content": "Phase 2: Backend Implementation - Models, APIs, Auth, File Upload",
-    "status": "in_progress"
-  },
-  {
     "content": "Phase 2: Frontend Implementation - All pages with institutional design",
-    "status": "in_progress"
+    "status": "completed"
   },
   {
     "content": "Phase 2: All user stories covered in Development and testing",
-    "status": "pending"
+    "status": "in_progress"
   },
   {
     "content": "Phase 2: End to End Testing using Testing Agent",
