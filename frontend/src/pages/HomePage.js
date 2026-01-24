@@ -84,13 +84,17 @@ const HomePage = () => {
             className="w-full h-full object-cover"
           />
         </div>
-        {/* Transparan Logo - Sağ Taraf (Beyaz arka plan kaldırıldı) */}
-        <div className="absolute right-12 lg:right-24 xl:right-32 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block opacity-15">
-          <img
-            src="/keeso-logo.png"
-            alt=""
-            style={{ filter: 'invert(1) brightness(2)' }}
-            className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] object-contain mix-blend-screen"
+        {/* Transparan Logo - Sağ Taraf */}
+        <div className="absolute right-12 lg:right-24 xl:right-32 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block">
+          <div 
+            className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] rounded-full opacity-10"
+            style={{
+              backgroundImage: 'url(/keeso-logo.png)',
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              mixBlendMode: 'overlay'
+            }}
           />
         </div>
         <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12 py-20 sm:py-28">
