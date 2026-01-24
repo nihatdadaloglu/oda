@@ -407,6 +407,197 @@ const DocumentsManager = () => {
 // Visits, Payments, Contacts, Memberships, Settings (simplified versions)
 const VisitsManager = () => <div><h2 className="text-2xl font-bold">Ziyaretler Yönetimi</h2><p className="text-gray-600 mt-4">Ziyaret ekleme ve düzenleme özellikleri burada yer alacaktır.</p></div>;
 const PaymentsManager = () => <div><h2 className="text-2xl font-bold">Ödeme Kalemleri</h2><p className="text-gray-600 mt-4">Ödeme kalemi yönetimi burada yer alacaktır.</p></div>;
+
+// Board Members Manager
+const BoardMembersManager = () => {
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [editingItem, setEditingItem] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    position: '',
+    board_type: 'yonetim',
+    photo: '',
+    bio: '',
+    order: 0
+  });
+
+  useEffect(() => {
+    fetchMembers();
+  }, []);
+
+  const fetchMembers = async () => {
+    try {
+      const response = await apiClient.get('/api/board-members');
+      setMembers(response.data);
+    } catch (error) {
+      toast.error('Üyeler yüklenemedi');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingItem) {
+        await apiClient.put(`/api/board-members/${editingItem.id}`, formData);
+        toast.success('Üye güncellendi');
+      } else {
+        await apiClient.post('/api/board-members', formData);
+        toast.success('Üye eklendi');
+      }
+      setShowForm(false);
+      setEditingItem(null);
+      setFormData({ name: '', position: '', board_type: 'yonetim', photo: '', bio: '', order: 0 });
+      fetchMembers();
+    } catch (error) {
+      toast.error('İşlem başarısız');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Bu üyeyi silmek istediğinizden emin misiniz?')) return;
+    try {
+      await apiClient.delete(`/api/board-members/${id}`);
+      toast.success('Üye silindi');
+      fetchMembers();
+    } catch (error) {
+      toast.error('Silme başarısız');
+    }
+  };
+
+  const handleEdit = (item) => {
+    setEditingItem(item);
+    setFormData({
+      name: item.name,
+      position: item.position,
+      board_type: item.board_type,
+      photo: item.photo || '',
+      bio: item.bio || '',
+      order: item.order || 0
+    });
+    setShowForm(true);
+  };
+
+  if (loading) return <div className="flex justify-center py-12"><div className="spinner"></div></div>;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Yönetim & Denetim Kurulu</h2>
+        <button
+          onClick={() => {
+            setShowForm(!showForm);
+            setEditingItem(null);
+            setFormData({ name: '', position: '', board_type: 'yonetim', photo: '', bio: '', order: 0 });
+          }}
+          className="flex items-center space-x-2 px-4 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]"
+        >
+          <Plus size={20} />
+          <span>Yeni Üye</span>
+        </button>
+      </div>
+
+      {showForm && (
+        <form onSubmit={handleSubmit} className="bg-white border rounded-lg p-6 mb-6">
+          <h3 className="font-semibold mb-4">{editingItem ? 'Üye Düzenle' : 'Yeni Üye Ekle'}</h3>
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Ad Soyad"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <input
+              type="text"
+              placeholder="Pozisyon (örn: Başkan, Üye)"
+              value={formData.position}
+              onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+              required
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <select
+              value={formData.board_type}
+              onChange={(e) => setFormData({ ...formData, board_type: e.target.value })}
+              className="w-full px-4 py-2 border rounded-md"
+            >
+              <option value="yonetim">Yönetim Kurulu</option>
+              <option value="denetim">Denetim Kurulu</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Fotoğraf URL (opsiyonel)"
+              value={formData.photo}
+              onChange={(e) => setFormData({ ...formData, photo: e.target.value })}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <textarea
+              placeholder="Biyografi (opsiyonel)"
+              value={formData.bio}
+              onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+              rows="3"
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <input
+              type="number"
+              placeholder="Sıra (küçük numara önce görünür)"
+              value={formData.order}
+              onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
+              className="w-full px-4 py-2 border rounded-md"
+            />
+            <div className="flex gap-2">
+              <button type="submit" className="px-6 py-2 bg-[#1e3a8a] text-white rounded-md hover:bg-[#1b3479]">
+                {editingItem ? 'Güncelle' : 'Ekle'}
+              </button>
+              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2 border rounded-md">
+                İptal
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+
+      <div className="bg-white border rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Ad Soyad</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Pozisyon</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Kurul</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Sıra</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {members.map((member) => (
+              <tr key={member.id}>
+                <td className="px-6 py-4 text-sm text-gray-900">{member.name}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">{member.position}</td>
+                <td className="px-6 py-4 text-sm text-gray-600">
+                  {member.board_type === 'yonetim' ? 'Yönetim Kurulu' : 'Denetim Kurulu'}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-600">{member.order}</td>
+                <td className="px-6 py-4 text-sm text-right space-x-2">
+                  <button onClick={() => handleEdit(member)} className="text-blue-600 hover:text-blue-800">
+                    <Edit size={18} />
+                  </button>
+                  <button onClick={() => handleDelete(member.id)} className="text-red-600 hover:text-red-800">
+                    <Trash2 size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
 const ContactsViewer = () => <div><h2 className="text-2xl font-bold">İletişim Mesajları</h2><p className="text-gray-600 mt-4">Gelen iletişim formları burada görüntülenecektir.</p></div>;
 const MembershipsViewer = () => <div><h2 className="text-2xl font-bold">Üyelik Başvuruları</h2><p className="text-gray-600 mt-4">Gelen üyelik başvuruları burada görüntülenecektir.</p></div>;
 const SettingsManager = () => <div><h2 className="text-2xl font-bold">Site Ayarları</h2><p className="text-gray-600 mt-4">İletişim bilgileri ve diğer ayarlar burada düzenlenecektir.</p></div>;
