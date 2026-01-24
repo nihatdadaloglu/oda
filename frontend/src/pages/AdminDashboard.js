@@ -90,6 +90,8 @@ const AdminHome = () => {
     { icon: GraduationCap, title: 'Eğitim ve Seminerler', path: '/admin/trainings', color: 'text-purple-600' },
     { icon: FileText, title: 'Belgeler', path: '/admin/documents', color: 'text-green-600' },
     { icon: Image, title: 'Ziyaretler', path: '/admin/visits', color: 'text-pink-600' },
+    { icon: Newspaper, title: 'Basında Biz', path: '/admin/press', color: 'text-cyan-600' },
+    { icon: Heart, title: 'Vefat ve Başsağlığı', path: '/admin/condolences', color: 'text-gray-500' },
     { icon: CreditCard, title: 'Ödeme Kalemleri', path: '/admin/payments', color: 'text-orange-600' },
     { icon: UserCheck, title: 'Yönetim & Denetim Kurulu', path: '/admin/board-members', color: 'text-teal-600' },
     { icon: Mail, title: 'İletişim Mesajları', path: '/admin/contacts', color: 'text-red-600' },
