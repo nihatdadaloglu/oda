@@ -89,7 +89,7 @@ const HomePage = () => {
           <img
             src="/keeso-logo.png"
             alt=""
-            className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] object-contain mix-blend-multiply opacity-30"
+            className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] object-contain mix-blend-lighten opacity-25"
           />
         </div>
         <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12 py-20 sm:py-28">
