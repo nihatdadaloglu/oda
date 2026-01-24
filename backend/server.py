@@ -490,6 +490,47 @@ async def delete_payment(id: str):
         raise HTTPException(status_code=404, detail="Ödeme bulunamadı")
     return {"message": "Ödeme silindi"}
 
+# Board Members CRUD
+@app.get("/api/board-members")
+async def get_board_members(board_type: Optional[str] = None):
+    query = {"board_type": board_type} if board_type else {}
+    members = await db.board_members.find(query).sort("order", 1).to_list(length=100)
+    return [serialize_doc(m) for m in members]
+
+@app.get("/api/board-members/{id}")
+async def get_board_member(id: str):
+    member = await db.board_members.find_one({"_id": ObjectId(id)})
+    if not member:
+        raise HTTPException(status_code=404, detail="Üye bulunamadı")
+    return serialize_doc(member)
+
+@app.post("/api/board-members")
+async def create_board_member(member: BoardMemberCreate):
+    new_member = {
+        **member.dict(),
+        "created_at": datetime.utcnow()
+    }
+    result = await db.board_members.insert_one(new_member)
+    new_member["id"] = str(result.inserted_id)
+    return serialize_doc(new_member)
+
+@app.put("/api/board-members/{id}")
+async def update_board_member(id: str, member: BoardMemberCreate):
+    result = await db.board_members.update_one(
+        {"_id": ObjectId(id)},
+        {"$set": {**member.dict(), "updated_at": datetime.utcnow()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Üye bulunamadı")
+    return {"message": "Üye güncellendi"}
+
+@app.delete("/api/board-members/{id}")
+async def delete_board_member(id: str):
+    result = await db.board_members.delete_one({"_id": ObjectId(id)})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Üye bulunamadı")
+    return {"message": "Üye silindi"}
+
 # Page Sections CRUD
 @app.get("/api/page-sections")
 async def get_page_sections(page: Optional[str] = None):
