@@ -1,0 +1,42 @@
+[
+  {
+    "content": "Phase 1: POC - Create test_core.py for email (SendGrid/SMTP) and file storage testing",
+    "status": "in_progress"
+  },
+  {
+    "content": "Phase 1: POC - Run test_core.py and fix until all tests pass",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 1: All POC user stories verified and working",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Get design guidelines from design_agent",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Backend Implementation - Models, APIs, Auth, File Upload",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Frontend Implementation - All pages with institutional design",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: All user stories covered in Development and testing",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: End to End Testing using Testing Agent",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 3: Fix all bugs found during testing",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 3: Final verification and delivery",
+    "status": "pending"
+  }
+]
