@@ -220,6 +220,8 @@ class TrainingCreate(BaseModel):
     instructor: Optional[str] = None
     capacity: Optional[int] = None
     registration_link: Optional[str] = None
+    cover_image: Optional[str] = None
+    gallery_images: List[str] = []
 
 class PageSectionCreate(BaseModel):
     page: str
