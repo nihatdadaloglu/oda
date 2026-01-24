@@ -157,29 +157,63 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Quick Actions */}
+      {/* Latest Visits */}
       <section className="bg-gray-50 py-16">
         <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
-          <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a] mb-12 text-center">
-            Hızlı Erişim
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickActions.map((action, index) => (
-              <Link
-                key={index}
-                to={action.link}
-                data-testid="quick-action-card"
-                className="group bg-white rounded-xl p-8 hover:shadow-xl transition-all border-2 border-transparent hover:border-[#1e3a8a]"
-              >
-                <div className={`w-16 h-16 rounded-full ${action.color === 'text-[#1e3a8a]' ? 'bg-blue-100' : 'bg-red-100'} flex items-center justify-center mb-5`}>
-                  <action.icon size={32} className={`${action.color}`} />
-                </div>
-                <h3 className="h-heading text-xl font-bold text-gray-900 mb-2 group-hover:text-[#1e3a8a] transition-colors">
-                  {action.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">{action.description}</p>
-              </Link>
-            ))}
+          <div className="flex items-center justify-center mb-12">
+            <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a] text-center">
+              Son Ziyaretler ve Etkinlikler
+            </h2>
+          </div>
+
+          {visits.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-8">
+              {visits.map((visit) => (
+                <Link
+                  key={visit.id}
+                  to={`/ziyaretler/${visit.id}`}
+                  className="group"
+                >
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-gray-200">
+                    <div className="aspect-[16/10] overflow-hidden">
+                      <img
+                        src={visit.cover_image}
+                        alt={visit.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center text-sm text-gray-600 mb-3">
+                        <Calendar size={16} className="mr-2" />
+                        {new Date(visit.date).toLocaleDateString('tr-TR', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </div>
+                      <h3 className="h-heading text-lg font-bold text-gray-900 mb-2 group-hover:text-[#1e3a8a] transition-colors line-clamp-2">
+                        {visit.title}
+                      </h3>
+                      <p className="text-sm text-gray-700 line-clamp-3 leading-relaxed">
+                        {visit.description}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-600 py-8">Henüz ziyaret kaydı bulunmamaktadır.</p>
+          )}
+          
+          <div className="text-center mt-10">
+            <Link
+              to="/ziyaretler"
+              className="inline-flex items-center px-8 py-3 bg-[#1e3a8a] text-white font-semibold text-lg rounded-lg hover:bg-[#1b3479] transition-colors"
+            >
+              Tüm Ziyaretleri Görüntüle
+              <ChevronRight size={24} className="ml-2" />
+            </Link>
           </div>
         </div>
       </section>
@@ -232,64 +266,6 @@ const HomePage = () => {
             </div>
           ) : (
             <p className="text-center text-gray-600 py-12">Henüz duyuru bulunmamaktadır.</p>
-          )}
-        </div>
-      </section>
-
-      {/* Latest Visits */}
-      <section className="bg-white py-16 border-t border-gray-100">
-        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a]">
-              Son Ziyaretler
-            </h2>
-            <Link
-              to="/ziyaretler"
-              className="text-base font-semibold text-[#dc2626] hover:underline flex items-center"
-            >
-              Tümünü Görür
-              <ChevronRight size={20} className="ml-1" />
-            </Link>
-          </div>
-
-          {visits.length > 0 ? (
-            <div className="grid md:grid-cols-3 gap-8">
-              {visits.map((visit) => (
-                <Link
-                  key={visit.id}
-                  to={`/ziyaretler/${visit.id}`}
-                  className="group"
-                >
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-gray-200">
-                    <div className="aspect-[16/10] overflow-hidden">
-                      <img
-                        src={visit.cover_image}
-                        alt={visit.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-center text-sm text-gray-600 mb-3">
-                        <Calendar size={16} className="mr-2" />
-                        {new Date(visit.date).toLocaleDateString('tr-TR', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </div>
-                      <h3 className="h-heading text-lg font-bold text-gray-900 mb-2 group-hover:text-[#1e3a8a] transition-colors line-clamp-2">
-                        {visit.title}
-                      </h3>
-                      <p className="text-sm text-gray-700 line-clamp-3 leading-relaxed">
-                        {visit.description}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-600 py-8">Henüz ziyaret kaydı bulunmamaktadır.</p>
           )}
         </div>
       </section>
