@@ -130,17 +130,18 @@ const HomePage = () => {
       </section>
 
       {/* Latest Announcements */}
-      <section className="bg-white py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="h-heading text-2xl sm:text-3xl font-semibold text-[#1e3a8a]">
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a]">
               Son Duyurular
             </h2>
             <Link
               to="/duyurular"
-              className="text-sm font-medium text-[#dc2626] hover:underline"
+              className="text-base font-semibold text-[#dc2626] hover:underline flex items-center"
             >
               Tümünü Görür
+              <ChevronRight size={20} className="ml-1" />
             </Link>
           </div>
 
@@ -149,39 +150,36 @@ const HomePage = () => {
               <div className="spinner"></div>
             </div>
           ) : announcements.length > 0 ? (
-            <div className="space-y-4">
+            <div className="grid lg:grid-cols-2 gap-6">
               {announcements.map((announcement) => (
                 <Link
                   key={announcement.id}
                   to={`/duyurular/${announcement.id}`}
-                  className="block border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors"
+                  className="group bg-gray-50 rounded-xl p-8 hover:bg-white hover:shadow-lg transition-all border border-gray-200"
                   data-testid="announcement-card"
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="inline-block px-2 py-1 text-xs font-medium bg-[#1e3a8a] text-white rounded">
-                          {announcement.category}
-                        </span>
-                        <span className="text-xs text-gray-500">
-                          {new Date(announcement.published_at).toLocaleDateString('tr-TR')}
-                        </span>
-                      </div>
-                      <h3 className="text-base font-semibold text-gray-900 mb-1">
-                        {announcement.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 line-clamp-2">
-                        {announcement.content.substring(0, 150)}...
-                      </p>
-                    </div>
-                    <ChevronRight size={20} className="text-gray-400 flex-shrink-0 ml-4" />
+                  <div className="flex items-center space-x-3 mb-4">
+                    <span className="inline-block px-4 py-1.5 text-sm font-semibold bg-[#1e3a8a] text-white rounded-full">
+                      {announcement.category}
+                    </span>
+                    <span className="text-sm text-gray-500 font-medium">
+                      {new Date(announcement.published_at).toLocaleDateString('tr-TR')}
+                    </span>
                   </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1e3a8a] transition-colors">
+                    {announcement.title}
+                  </h3>
+                  <p className="text-gray-700 line-clamp-3 leading-relaxed">
+                    {announcement.content.substring(0, 200)}...
+                  </p>
                 </Link>
               ))}
             </div>
           ) : (
             <p className="text-center text-gray-600 py-12">Henüz duyuru bulunmamaktadır.</p>
           )}
+        </div>
+      </section>
         </div>
       </section>
 
