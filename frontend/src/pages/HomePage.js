@@ -184,50 +184,50 @@ const HomePage = () => {
       </section>
 
       {/* About Section */}
-      <section className="bg-gray-50 py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h2 className="h-heading text-2xl sm:text-3xl font-semibold text-[#1e3a8a] mb-4">
+      <section className="bg-[#f8fafc] py-20">
+        <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
+          <div className="grid lg:grid-cols-5 gap-12 items-center">
+            <div className="lg:col-span-3">
+              <h2 className="h-heading text-3xl sm:text-4xl font-bold text-[#1e3a8a] mb-6">
                 Hakkımızda
               </h2>
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <p className="text-lg text-gray-700 leading-relaxed mb-5">
                 Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası (KEESO), Kayseri'de faaliyet gösteren 
                 emlak danışmanlarının ve emlak sektöründe çalışan esnaf ve sanatkârların resmi meslek 
                 kuruluşudur.
               </p>
-              <p className="text-gray-700 leading-relaxed mb-6">
+              <p className="text-lg text-gray-700 leading-relaxed mb-8">
                 Amacımız, sektörde faaliyet gösteren üyelerimizin haklarını korumak, mesleki standartları 
                 yükseltmek ve sektörün düzenli ve etik çerçevede gelişmesini sağlamaktır.
               </p>
               <Link
                 to="/kurumsal"
-                className="inline-flex items-center text-[#dc2626] font-medium hover:underline"
+                className="inline-flex items-center text-lg font-semibold text-[#dc2626] hover:underline"
               >
                 Detaylı Bilgi
-                <ChevronRight size={20} className="ml-1" />
+                <ChevronRight size={24} className="ml-1" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
-                <Building size={32} className="text-[#1e3a8a] mx-auto mb-2" />
-                <p className="text-sm text-gray-600">Kurumsal</p>
-                <p className="text-sm text-gray-600">Profesyonellik</p>
+            <div className="lg:col-span-2 grid grid-cols-2 gap-5">
+              <div className="bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition-shadow">
+                <Building size={40} className="text-[#1e3a8a] mx-auto mb-4" />
+                <p className="text-base font-semibold text-gray-700 mb-1">Kurumsal</p>
+                <p className="text-base font-semibold text-gray-700">Profesyonellik</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
-                <Users size={32} className="text-[#dc2626] mx-auto mb-2" />
-                <p className="text-sm text-gray-600">Güvenilir</p>
-                <p className="text-sm text-gray-600">Hizmet</p>
+              <div className="bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition-shadow">
+                <Users size={40} className="text-[#dc2626] mx-auto mb-4" />
+                <p className="text-base font-semibold text-gray-700 mb-1">Güvenilir</p>
+                <p className="text-base font-semibold text-gray-700">Hizmet</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
-                <FileText size={32} className="text-[#1e3a8a] mx-auto mb-2" />
-                <p className="text-sm text-gray-600">Etik</p>
-                <p className="text-sm text-gray-600">Standartlar</p>
+              <div className="bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition-shadow">
+                <FileText size={40} className="text-[#1e3a8a] mx-auto mb-4" />
+                <p className="text-base font-semibold text-gray-700 mb-1">Etik</p>
+                <p className="text-base font-semibold text-gray-700">Standartlar</p>
               </div>
-              <div className="bg-white border border-gray-200 rounded-lg p-6 text-center">
-                <Phone size={32} className="text-[#dc2626] mx-auto mb-2" />
-                <p className="text-sm text-gray-600">7/24</p>
-                <p className="text-sm text-gray-600">Destek</p>
+              <div className="bg-white rounded-2xl p-8 text-center shadow-md hover:shadow-xl transition-shadow">
+                <Phone size={40} className="text-[#dc2626] mx-auto mb-4" />
+                <p className="text-base font-semibold text-gray-700 mb-1">7/24</p>
+                <p className="text-base font-semibold text-gray-700">Destek</p>
               </div>
             </div>
           </div>
