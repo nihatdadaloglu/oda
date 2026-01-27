@@ -77,7 +77,7 @@ const HomePage = () => {
 
       {/* Hero Section - Full Width with Overlay */}
       <section className="relative bg-[#1e3a8a] text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-40">
           <img
             src="/images/erciyes-hero.jpg"
             alt="Kayseri Erciyes Dağı"
