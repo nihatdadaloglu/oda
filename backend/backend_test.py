@@ -383,6 +383,10 @@ def main():
     tester.test_get_settings()
     tester.test_get_contacts()
     tester.test_get_memberships()
+    tester.test_get_trainings()
+    tester.test_get_press()
+    tester.test_get_condolences()
+    tester.test_get_board_members()
     
     # Test 5: Public Forms
     print("\n" + "=" * 60)
