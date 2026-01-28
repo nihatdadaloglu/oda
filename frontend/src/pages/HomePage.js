@@ -9,22 +9,22 @@ const heroSlides = [
   {
     image: '/images/erciyes-kayak.jpg',
     slogan: 'Uğurlu ve Güvenli Alışveriş Bu Çatının Altındaki Ofislerde',
-    position: 'center top' // Erciyes dağını göster
+    position: 'center 40%' // Erciyes dağı + yol birlikte (orta-üst odak)
   },
   {
     image: '/images/kayseri-meydan.jpg',
     slogan: 'Kayseri\'de Emlak Sektörünün Güçlü Çatısı',
-    position: 'center center' // Meydanı ortala
+    position: 'center 35%' // Saat kulesi + cami + bayraklar (orta-üst odak)
   },
   {
     image: '/images/kayseri-gece1.jpg',
     slogan: 'Profesyonel Hizmet, Güvenilir Çözümler',
-    position: 'center bottom' // Şehir ışıklarını göster
+    position: 'center 60%' // Şehir ışıkları + AVM (orta-alt odak)
   },
   {
     image: '/images/kayseri-gece2.jpg',
     slogan: 'Emlakta Güven, KEESO Güvencesi',
-    position: 'center center' // Bulvarı ortala
+    position: 'center 45%' // Bulvar + Radisson + şehir (orta odak)
   }
 ];
 
