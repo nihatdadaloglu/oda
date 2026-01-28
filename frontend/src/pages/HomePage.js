@@ -9,7 +9,7 @@ const heroSlides = [
   {
     image: '/images/erciyes-kayak.jpg',
     slogan: 'Uğurlu ve Güvenli Alışveriş Bu Çatının Altındaki Ofislerde',
-    position: 'center 40%' // Erciyes dağı + yol birlikte (orta-üst odak)
+    position: 'center top' // Erciyes dağı görünsün
   },
   {
     image: '/images/kayseri-meydan.jpg',
