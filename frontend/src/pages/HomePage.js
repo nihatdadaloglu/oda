@@ -116,6 +116,7 @@ const HomePage = () => {
               key={slide.image}
               src={slide.image}
               alt="Kayseri"
+              style={{ objectPosition: slide.position }}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
                 index === currentSlideIndex ? 'opacity-50' : 'opacity-0'
               }`}
