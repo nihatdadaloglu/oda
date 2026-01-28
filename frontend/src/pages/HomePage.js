@@ -4,27 +4,39 @@ import { Helmet } from 'react-helmet-async';
 import { FileText, Users, Phone, Building, Calendar, ChevronRight } from 'lucide-react';
 import apiClient from '../api/client';
 
-// Hero slider images
-const heroImages = [
-  '/images/erciyes-kayak.jpg',
-  '/images/kayseri-meydan.jpg',
-  '/images/kayseri-gece1.jpg',
-  '/images/kayseri-gece2.jpg'
+// Hero slider images and slogans
+const heroSlides = [
+  {
+    image: '/images/erciyes-kayak.jpg',
+    slogan: 'Uğurlu ve Güvenli Alışveriş Bu Çatının Altındaki Ofislerde'
+  },
+  {
+    image: '/images/kayseri-meydan.jpg',
+    slogan: 'Kayseri\'de Emlak Sektörünün Güçlü Çatısı'
+  },
+  {
+    image: '/images/kayseri-gece1.jpg',
+    slogan: 'Profesyonel Hizmet, Güvenilir Çözümler'
+  },
+  {
+    image: '/images/kayseri-gece2.jpg',
+    slogan: 'Emlakta Güven, KEESO Güvencesi'
+  }
 ];
 
 const HomePage = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [visits, setVisits] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   useEffect(() => {
     fetchLatestAnnouncements();
     fetchLatestVisits();
     
-    // Image slider interval
+    // Slider interval
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+      setCurrentSlideIndex((prev) => (prev + 1) % heroSlides.length);
     }, 5000); // 5 saniyede bir değişir
     
     return () => clearInterval(interval);
