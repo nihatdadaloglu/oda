@@ -284,6 +284,54 @@ class KEESOAPITester:
         )
         return success
 
+    def test_get_trainings(self):
+        """Test getting trainings"""
+        success, response = self.run_test(
+            "Get Trainings",
+            "GET",
+            "/api/trainings",
+            200
+        )
+        if success:
+            print(f"   ✓ Found {len(response)} trainings")
+        return success
+
+    def test_get_press(self):
+        """Test getting press items"""
+        success, response = self.run_test(
+            "Get Press Items",
+            "GET",
+            "/api/press",
+            200
+        )
+        if success:
+            print(f"   ✓ Found {len(response.get('items', []))} press items")
+        return success
+
+    def test_get_condolences(self):
+        """Test getting condolences"""
+        success, response = self.run_test(
+            "Get Condolences",
+            "GET",
+            "/api/condolences",
+            200
+        )
+        if success:
+            print(f"   ✓ Found {len(response.get('items', []))} condolences")
+        return success
+
+    def test_get_board_members(self):
+        """Test getting board members"""
+        success, response = self.run_test(
+            "Get Board Members",
+            "GET",
+            "/api/board-members",
+            200
+        )
+        if success:
+            print(f"   ✓ Found {len(response)} board members")
+        return success
+
 def main():
     print("=" * 60)
     print("KEESO API Testing Suite")
