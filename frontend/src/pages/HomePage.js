@@ -106,12 +106,12 @@ const HomePage = () => {
             />
           ))}
         </div>
-        {/* Transparan Logo - Sağ Taraf */}
-        <div className="absolute right-12 lg:right-24 xl:right-32 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block opacity-40">
+        {/* Logo - Sağ Taraf */}
+        <div className="absolute right-8 lg:right-16 xl:right-24 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block">
           <img
             src="/keeso-logo-main.png"
             alt=""
-            className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] object-contain"
+            className="w-[400px] h-[400px] xl:w-[500px] xl:h-[500px] object-contain"
           />
         </div>
         {/* Slider Indicators */}
