@@ -107,13 +107,13 @@ const HomePage = () => {
       <section className="relative bg-[#1e3a8a] text-white overflow-hidden">
         {/* Arka Plan Slider */}
         <div className="absolute inset-0">
-          {heroImages.map((img, index) => (
+          {heroSlides.map((slide, index) => (
             <img
-              key={img}
-              src={img}
+              key={slide.image}
+              src={slide.image}
               alt="Kayseri"
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-                index === currentImageIndex ? 'opacity-50' : 'opacity-0'
+                index === currentSlideIndex ? 'opacity-50' : 'opacity-0'
               }`}
             />
           ))}
@@ -128,21 +128,31 @@ const HomePage = () => {
         </div>
         {/* Slider Indicators */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
-          {heroImages.map((_, index) => (
+          {heroSlides.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentImageIndex(index)}
+              onClick={() => setCurrentSlideIndex(index)}
               className={`w-3 h-3 rounded-full transition-all ${
-                index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'
+                index === currentSlideIndex ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'
               }`}
             />
           ))}
         </div>
         <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12 py-20 sm:py-28">
           <div className="max-w-3xl">
-            <h1 className="h-heading text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-              Kayseri'de Emlak Sektörünün Güçlü Çatısı
-            </h1>
+            {/* Değişen Slogan */}
+            <div className="relative h-[120px] sm:h-[140px] lg:h-[160px] mb-6">
+              {heroSlides.map((slide, index) => (
+                <h1 
+                  key={index}
+                  className={`absolute inset-0 h-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight transition-opacity duration-700 ${
+                    index === currentSlideIndex ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  {slide.slogan}
+                </h1>
+              ))}
+            </div>
             <p className="text-xl text-blue-100 mb-8 leading-relaxed">
               Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası olarak, sektörün profesyonel ve etik çerçevede gelişmesi için çalışıyoruz.
             </p>
