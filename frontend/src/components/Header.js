@@ -50,11 +50,12 @@ const Header = () => {
                 key={item.path}
                 to={item.path}
                 data-testid="header-nav-link"
-                className={`px-3 py-2 text-sm font-semibold rounded-md transition-all ${
+                className={`px-3 py-2 text-sm rounded-md transition-all ${
                   isActive(item.path)
                     ? 'text-white bg-white/20 shadow-inner'
                     : 'text-blue-100 hover:text-white hover:bg-white/10'
                 }`}
+                style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, letterSpacing: '0.02em' }}
               >
                 {item.label}
               </Link>
