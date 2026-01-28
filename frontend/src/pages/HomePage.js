@@ -125,21 +125,10 @@ const HomePage = () => {
         </div>
         {/* Logo - Sağ Taraf */}
         <div className="absolute right-8 lg:right-16 xl:right-24 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block">
-          {/* Arka Plan Kart */}
-          <div 
-            className="absolute inset-0 -m-6 rounded-3xl"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 0 20px rgba(255,255,255,0.1)'
-            }}
-          ></div>
-          {/* Logo */}
           <img
             src="/keeso-logo-main.png"
             alt=""
-            className="relative w-[400px] h-[400px] xl:w-[500px] xl:h-[500px] object-contain"
+            className="w-[400px] h-[400px] xl:w-[500px] xl:h-[500px] object-contain"
           />
         </div>
         {/* Slider Indicators */}
