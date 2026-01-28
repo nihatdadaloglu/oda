@@ -190,8 +190,11 @@ const HomePage = () => {
                 <p className="font-semibold text-[#1e3a8a] mt-4">
                   Saygılarımla,
                 </p>
-                <p className="font-bold text-gray-900">
-                  KEESO Başkanı
+                <p className="font-bold text-gray-900 text-lg">
+                  Selim ATASOY
+                </p>
+                <p className="text-[#1e3a8a] font-medium">
+                  KEESO Yönetim Kurulu Başkanı
                 </p>
               </div>
             </div>
