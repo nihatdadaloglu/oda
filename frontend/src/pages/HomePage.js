@@ -41,7 +41,7 @@ const HomePage = () => {
     // Slider interval
     const interval = setInterval(() => {
       setCurrentSlideIndex((prev) => (prev + 1) % heroSlides.length);
-    }, 5000); // 5 saniyede bir değişir
+    }, 10000); // 10 saniyede bir değişir
     
     return () => clearInterval(interval);
   }, []);
