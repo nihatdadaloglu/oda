@@ -35,7 +35,7 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <img src="/keeso-logo.png" alt="KEESO" className="h-10 w-10" />
+              <img src="/keeso-logo-main.png" alt="KEESO" className="h-10 w-10" />
               <div className="h-heading text-lg font-semibold text-[#1e3a8a]">
                 KEESO
               </div>

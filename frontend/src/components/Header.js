@@ -34,7 +34,7 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3" data-testid="header-logo">
-            <img src="/keeso-logo.png" alt="KEESO Logo" className="h-12 w-12" />
+            <img src="/keeso-logo-main.png" alt="KEESO Logo" className="h-12 w-12" />
             <div className="hidden md:block">
               <div className="h-heading text-lg font-semibold text-[#1e3a8a] leading-tight">
                 KEESO

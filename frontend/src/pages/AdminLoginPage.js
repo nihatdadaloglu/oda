@@ -40,7 +40,7 @@ const AdminLoginPage = () => {
         <div className="max-w-md w-full">
           <div className="bg-white rounded-lg shadow-md p-8">
             <div className="text-center mb-8">
-              <img src="/keeso-logo.png" alt="KEESO" className="h-16 w-16 mx-auto mb-4" />
+              <img src="/keeso-logo-main.png" alt="KEESO" className="h-16 w-16 mx-auto mb-4" />
               <h1 className="h-heading text-2xl font-bold text-[#1e3a8a]">Admin Girişi</h1>
               <p className="text-sm text-gray-600 mt-2">Yönetim paneline erişim</p>
             </div>
