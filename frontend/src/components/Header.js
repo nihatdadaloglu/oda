@@ -36,10 +36,10 @@ const Header = () => {
           <Link to="/" className="flex items-center space-x-3" data-testid="header-logo">
             <img src="/keeso-logo-main.png" alt="KEESO Logo" className="h-14 w-14" />
             <div className="hidden md:block">
-              <div className="h-heading text-xl font-bold text-white leading-tight">
+              <div className="text-xl text-white leading-tight" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700 }}>
                 KEESO
               </div>
-              <div className="text-xs text-blue-200">Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası</div>
+              <div className="text-xs text-blue-200" style={{ fontFamily: "'Open Sans', sans-serif" }}>Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası</div>
             </div>
           </Link>
 
