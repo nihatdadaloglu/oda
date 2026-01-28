@@ -8,19 +8,23 @@ import apiClient from '../api/client';
 const heroSlides = [
   {
     image: '/images/erciyes-kayak.jpg',
-    slogan: 'Uğurlu ve Güvenli Alışveriş Bu Çatının Altındaki Ofislerde'
+    slogan: 'Uğurlu ve Güvenli Alışveriş Bu Çatının Altındaki Ofislerde',
+    position: 'center top' // Erciyes dağını göster
   },
   {
     image: '/images/kayseri-meydan.jpg',
-    slogan: 'Kayseri\'de Emlak Sektörünün Güçlü Çatısı'
+    slogan: 'Kayseri\'de Emlak Sektörünün Güçlü Çatısı',
+    position: 'center center' // Meydanı ortala
   },
   {
     image: '/images/kayseri-gece1.jpg',
-    slogan: 'Profesyonel Hizmet, Güvenilir Çözümler'
+    slogan: 'Profesyonel Hizmet, Güvenilir Çözümler',
+    position: 'center bottom' // Şehir ışıklarını göster
   },
   {
     image: '/images/kayseri-gece2.jpg',
-    slogan: 'Emlakta Güven, KEESO Güvencesi'
+    slogan: 'Emlakta Güven, KEESO Güvencesi',
+    position: 'center center' // Bulvarı ortala
   }
 ];
 
