@@ -124,7 +124,7 @@ const HomePage = () => {
           ))}
         </div>
         {/* Logo - Sağ Taraf */}
-        <div className="absolute right-8 lg:right-12 xl:right-20 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block opacity-85">
+        <div className="absolute right-8 lg:right-12 xl:right-20 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block opacity-70">
           <img
             src="/keeso-logo-main.png"
             alt=""
