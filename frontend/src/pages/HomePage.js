@@ -125,11 +125,30 @@ const HomePage = () => {
         </div>
         {/* Logo - Sağ Taraf */}
         <div className="absolute right-8 lg:right-16 xl:right-24 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block">
-          <img
-            src="/keeso-logo-main.png"
-            alt=""
-            className="w-[400px] h-[400px] xl:w-[500px] xl:h-[500px] object-contain"
-          />
+          {/* Dış Halka - Dönen */}
+          <div className="absolute inset-0 -m-8">
+            <div className="w-full h-full rounded-full border-2 border-white/20 animate-spin" style={{ animationDuration: '20s' }}></div>
+          </div>
+          {/* İç Halka - Ters Dönen */}
+          <div className="absolute inset-0 -m-4">
+            <div className="w-full h-full rounded-full border border-dashed border-white/30 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
+          </div>
+          {/* Glow Efekti */}
+          <div className="absolute inset-0 -m-6 bg-white/10 rounded-full blur-xl"></div>
+          {/* Logo Container */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-full blur-2xl scale-110"></div>
+            <img
+              src="/keeso-logo-main.png"
+              alt=""
+              className="relative w-[400px] h-[400px] xl:w-[500px] xl:h-[500px] object-contain drop-shadow-2xl"
+            />
+          </div>
+          {/* Köşe Dekorasyonları */}
+          <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-white/40 rounded-tl-lg"></div>
+          <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-white/40 rounded-tr-lg"></div>
+          <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-white/40 rounded-bl-lg"></div>
+          <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-white/40 rounded-br-lg"></div>
         </div>
         {/* Slider Indicators */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
