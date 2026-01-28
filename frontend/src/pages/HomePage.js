@@ -91,14 +91,20 @@ const HomePage = () => {
         />
       </Helmet>
 
-      {/* Hero Section - Full Width with Overlay */}
+      {/* Hero Section - Full Width with Slider */}
       <section className="relative bg-[#1e3a8a] text-white overflow-hidden">
+        {/* Arka Plan Slider */}
         <div className="absolute inset-0">
-          <img
-            src="/images/erciyes-bg.jpg"
-            alt="Kayseri Erciyes Dağı"
-            className="w-full h-full object-cover opacity-40"
-          />
+          {heroImages.map((img, index) => (
+            <img
+              key={img}
+              src={img}
+              alt="Kayseri"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                index === currentImageIndex ? 'opacity-50' : 'opacity-0'
+              }`}
+            />
+          ))}
         </div>
         {/* Transparan Logo - Sağ Taraf */}
         <div className="absolute right-12 lg:right-24 xl:right-32 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block opacity-40">
@@ -107,6 +113,18 @@ const HomePage = () => {
             alt=""
             className="w-[350px] h-[350px] xl:w-[420px] xl:h-[420px] object-contain"
           />
+        </div>
+        {/* Slider Indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'
+              }`}
+            />
+          ))}
         </div>
         <div className="relative mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12 py-20 sm:py-28">
           <div className="max-w-3xl">
