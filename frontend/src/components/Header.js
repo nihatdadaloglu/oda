@@ -27,19 +27,19 @@ const Header = () => {
 
   return (
     <header 
-      className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 border-b border-gray-200"
+      className="sticky top-0 z-50 bg-[#1e3a8a] shadow-lg"
       data-testid="header-navbar"
     >
       <div className="mx-auto max-w-[1400px] px-6 sm:px-8 lg:px-12">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3" data-testid="header-logo">
-            <img src="/keeso-logo-main.png" alt="KEESO Logo" className="h-12 w-12" />
+            <img src="/keeso-logo-main.png" alt="KEESO Logo" className="h-14 w-14" />
             <div className="hidden md:block">
-              <div className="h-heading text-lg font-semibold text-[#1e3a8a] leading-tight">
+              <div className="h-heading text-xl font-bold text-white leading-tight">
                 KEESO
               </div>
-              <div className="text-xs text-gray-600">Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası</div>
+              <div className="text-xs text-blue-200">Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası</div>
             </div>
           </Link>
 
@@ -50,10 +50,10 @@ const Header = () => {
                 key={item.path}
                 to={item.path}
                 data-testid="header-nav-link"
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                className={`px-3 py-2 text-sm font-semibold rounded-md transition-all ${
                   isActive(item.path)
-                    ? 'text-[#1e3a8a] bg-gray-100'
-                    : 'text-gray-700 hover:text-[#1e3a8a] hover:bg-gray-50'
+                    ? 'text-white bg-white/20 shadow-inner'
+                    : 'text-blue-100 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {item.label}
@@ -64,7 +64,7 @@ const Header = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+            className="lg:hidden p-2 rounded-md text-white hover:bg-white/10"
             data-testid="mobile-menu-button"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -73,7 +73,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <nav className="lg:hidden py-4 border-t">
+          <nav className="lg:hidden py-4 border-t border-white/20">
             <div className="flex flex-col space-y-1">
               {navItems.map((item) => (
                 <Link
@@ -81,10 +81,10 @@ const Header = () => {
                   to={item.path}
                   onClick={() => setMobileMenuOpen(false)}
                   data-testid="header-nav-link-mobile"
-                  className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                  className={`px-3 py-2 text-sm font-semibold rounded-md transition-all ${
                     isActive(item.path)
-                      ? 'text-[#1e3a8a] bg-gray-100'
-                      : 'text-gray-700 hover:text-[#1e3a8a] hover:bg-gray-50'
+                      ? 'text-white bg-white/20'
+                      : 'text-blue-100 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   {item.label}
