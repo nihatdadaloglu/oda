@@ -39,7 +39,7 @@ const Header = () => {
               <div className="h-heading text-lg font-semibold text-[#1e3a8a] leading-tight">
                 KEESO
               </div>
-              <div className="text-xs text-gray-600">Kayseri Emlakçılar Odası</div>
+              <div className="text-xs text-gray-600">Kayseri Emlakçılar Esnaf ve Sanatkârlar Odası</div>
             </div>
           </Link>
 
