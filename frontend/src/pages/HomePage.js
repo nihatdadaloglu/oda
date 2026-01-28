@@ -125,30 +125,21 @@ const HomePage = () => {
         </div>
         {/* Logo - Sağ Taraf */}
         <div className="absolute right-8 lg:right-16 xl:right-24 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block">
-          {/* Yumuşak Parıltı */}
+          {/* Arka Plan Kart */}
           <div 
-            className="absolute inset-0 rounded-full animate-pulse"
-            style={{ 
-              background: 'radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)',
-              transform: 'scale(1.2)'
+            className="absolute inset-0 -m-6 rounded-3xl"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 0 20px rgba(255,255,255,0.1)'
             }}
           ></div>
-          {/* İnce Altın Çerçeve */}
-          <div className="absolute inset-0 -m-3 rounded-full" style={{ 
-            border: '2px solid rgba(212, 175, 55, 0.5)',
-            boxShadow: '0 0 15px rgba(212, 175, 55, 0.3), inset 0 0 15px rgba(212, 175, 55, 0.1)'
-          }}></div>
-          {/* Köşe Parıltıları */}
-          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/60 rounded-full blur-sm"></div>
-          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/60 rounded-full blur-sm"></div>
-          <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-4 h-4 bg-white/60 rounded-full blur-sm"></div>
-          <div className="absolute top-1/2 -right-2 -translate-y-1/2 w-4 h-4 bg-white/60 rounded-full blur-sm"></div>
           {/* Logo */}
           <img
             src="/keeso-logo-main.png"
             alt=""
             className="relative w-[400px] h-[400px] xl:w-[500px] xl:h-[500px] object-contain"
-            style={{ filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.3))' }}
           />
         </div>
         {/* Slider Indicators */}
